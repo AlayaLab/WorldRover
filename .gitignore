@@ -1,1 +1,7 @@
 .DS_Store
+
+# Source report bundle — not part of the published site
+worldrover_preview_report.zip
+
+# Unzipped report sources (local reference only)
+report_src/
