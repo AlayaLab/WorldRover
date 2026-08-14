@@ -4,11 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>WorldRover: A Scalable Synthetic Video Data Engine for World Exploration</title>
-<meta name="description" content="WorldRover — a scalable synthetic video data engine and 10M-frame dataset for world exploration, where every frame carries exact depth, motion, camera and control, rendered from 30+ artist-built Unreal Engine environments.">
+<meta name="description" content="WorldRover — a rendering engine and a 10M-frame dataset of explorable worlds, where every frame carries exact depth, motion, camera and control.">
 
-<!-- Social preview -->
-<meta property="og:title" content="WorldRover: A Scalable Synthetic Video Data Engine for World Exploration">
-<meta property="og:description" content="A rendering engine and 10M-frame dataset of explorable worlds, where every frame carries exact geometry, motion, camera and control.">
+<meta property="og:title" content="WorldRover">
+<meta property="og:description" content="A rendering engine and a 10M-frame dataset of explorable worlds, where every frame carries exact geometry, motion, camera and control.">
 <meta property="og:url" content="https://alayalab.github.io/WorldRover/">
 <meta property="og:image" content="https://alayalab.github.io/WorldRover/static/images/teaser.jpg">
 <meta name="twitter:card" content="summary_large_image">
@@ -16,399 +15,177 @@
 <link rel="icon" href="data:,">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="static/css/style.css">
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="static/css/cyber.css">
 </head>
 <body>
 
-<nav class="nav" aria-label="Main navigation">
-  <a class="brand" href="#top"><span class="brand-mark">WR</span><span>WorldRover</span></a>
-  <div class="nav-links">
-    <a href="#engine">Engine</a>
-    <a href="#viewpoints">Viewpoints</a>
-    <a href="#modalities">Modalities</a>
-    <a href="#diversity">Diversity</a>
-    <a href="#applications">Applications</a>
-  </div>
-  <a class="nav-cta" href="#access">Get the data <span>↗</span></a>
-</nav>
+<!-- ============ HERO ============ -->
+<header class="hero">
+  <div class="grid-bg"></div>
+  <div class="glow"></div>
+  <div class="wrap">
+    <h1>World<span>Rover</span></h1>
+    <p class="tagline">A scalable synthetic video data engine for world exploration — with exact geometry, motion, camera and control on every frame.</p>
 
-<main id="top">
-
-  <!-- ===================== HERO ===================== -->
-  <section class="hero">
-    <div class="media-wall" id="media-wall" aria-hidden="true"></div>
-    <div class="hero-shade"></div>
-    <div class="hero-grid"></div>
-    <div class="hero-copy">
-      <p class="eyebrow"><span></span> Preview Release &middot; 2026 <span></span></p>
-      <h1>WorldRover</h1>
-      <p class="hero-tagline">A Scalable Synthetic Video Data Engine for World Exploration<br>with <em>Rich Annotations</em></p>
-      <p class="hero-deck">
-        A rendering engine and a 10M-frame dataset of explorable worlds — one traversal through an
-        artist-built environment, re-observed from any viewpoint and appearance, where every frame
-        carries exact geometry, motion, camera and control.
-      </p>
-      <p class="hero-authors">
-        Xiaojie Xu<sup>1,2,*</sup> &nbsp; Zhengyuan Lin<sup>1,2,*</sup> &nbsp; Runyi Li<sup>1,2</sup> &nbsp;
-        Yihao Liu<sup>1</sup> &nbsp; Kaipeng Zhang<sup>1,3,&dagger;</sup> &nbsp; Yongtao Ge<sup>1,&dagger;</sup>
-      </p>
-      <p class="hero-affil">
-        <sup>1</sup> Alaya Lab &nbsp;&middot;&nbsp; <sup>2</sup> The University of Tokyo &nbsp;&middot;&nbsp;
-        <sup>3</sup> Shanghai Innovation Institute<br>
-        <span class="hero-corr"><sup>*</sup> Equal contribution &nbsp;&middot;&nbsp; <sup>&dagger;</sup> Corresponding authors</span>
-      </p>
-      <div class="hero-actions">
-        <a class="button glass disabled" href="#" aria-disabled="true" title="Link to be added">
-          <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8l-5-5Z"/><path d="M14 3v5h5"/><path d="M9 13h6M9 17h6"/></svg>
-          Paper <span>arXiv</span></a>
-        <a class="button glass" href="https://github.com/AlayaLab/WorldRover" target="_blank" rel="noreferrer">
-          <svg class="ico solid" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1.1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.5-1.3-5.5-5.9 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17.2 4.8 18.2 5.1 18.2 5.1c.6 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .3Z"/></svg>
-          Code <span>GitHub</span></a>
-        <a class="button glass disabled" href="#" aria-disabled="true" title="Link to be added">
-          <span class="ico" aria-hidden="true">&#129303;</span>
-          Dataset <span>Hugging Face</span></a>
-        <a class="button primary" href="#engine">
-          <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14"/><path d="m5 12 7 7 7-7"/></svg>
-          Explore</a>
-      </div>
-    </div>
-    <div class="hero-foot"><span>Scroll to explore</span><i></i></div>
-  </section>
-
-  <!-- ===================== METRICS ===================== -->
-  <section class="numbers" aria-label="Dataset at a glance">
-    <div class="metric"><strong>10M</strong><span>annotated frames</span></div>
-    <div class="metric"><strong>30+</strong><span>artist-built scenes</span></div>
-    <div class="metric"><strong>70+</strong><span>animated characters</span></div>
-    <div class="metric"><strong>3</strong><span>camera viewpoints</span></div>
-    <div class="metric accent"><strong>6</strong><span>aligned modalities</span></div>
-  </section>
-
-  <!-- ===================== ABSTRACT / INTRO ===================== -->
-  <section class="section intro reveal" id="about">
-    <p class="kicker">The data problem</p>
-    <h2>Explorable worlds need video where geometry, motion, camera and control are all known exactly.</h2>
-    <p class="lead">
-      Interactive world models and dynamic 4D reconstruction have converged on the same requirement.
-      Real capture supplies realism but no per-pixel ground truth; existing synthetic corpora supply
-      ground truth but are narrow, static in lighting, locked to one viewpoint, or missing the
-      correspondence and control signals these problems depend on. <b>WorldRover</b> is a rendering
-      system — <b>WorldRover-Engine</b>, built on Unreal Engine 5.5 and SPEAR, and
-      <b>WorldRover-10M</b>, the dataset it produced. It moves a camera along a route through an
-      artist-built environment and renders the traversal offline, so every output is a by-product of
-      rendering: the dataset grows by configuration and compute rather than by manual labelling.
+    <p class="authors">
+      <span>Xiaojie Xu<sup>1,2,*</sup></span>
+      <span>Zhengyuan Lin<sup>1,2,*</sup></span>
+      <span>Runyi Li<sup>1,2</sup></span>
+      <span>Yihao Liu<sup>1</sup></span>
+      <span>Kaipeng Zhang<sup>1,3,†</sup></span>
+      <span>Yongtao Ge<sup>1,†</sup></span>
     </p>
-    <figure class="reveal">
-      <div class="showcase" data-showcase>
-        <span class="chip">Preview · teaser</span>
-        <span class="stage">
-          <img src="static/images/teaser.jpg" alt="WorldRover teaser: one traversal re-observed from multiple viewpoints, appearances and modalities.">
-        </span>
-        <button class="play" aria-label="Play preview">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
-        </button>
-      </div>
-      <div class="keyframes" data-keyframes></div>
-      <figcaption>
-        <b>One traversal, many observations.</b> A single walk through an artist-built environment,
-        re-observed from first-person, third-person and 360&deg; panoramic viewpoints, under
-        different lighting and weather, and as an untextured white model — with metric depth, optical
-        flow, long-range point tracks, calibrated cameras and the action stream all emitted from a
-        single render per frame.
-      </figcaption>
-    </figure>
-  </section>
+    <p class="affil">
+      <span><sup>1</sup>Alaya Lab</span>
+      <span><sup>2</sup>The University of Tokyo</span>
+      <span><sup>3</sup>Shanghai Innovation Institute</span>
+    </p>
 
-  <!-- ===================== ENGINE ===================== -->
-  <section class="section" id="engine">
-    <div class="section-heading reveal">
-      <div>
-        <p class="kicker">WorldRover-Engine</p>
-        <h2>Prepare a scene once,<br>render any traversal.</h2>
-      </div>
-      <p>
-        The architecture separates an <b>editor side</b> — where each scene is ingested, stylized into
-        fixed lighting and weather states, and given a baked navigation mesh — from a
-        <b>generation side</b> that renders offline on a multi-GPU host, accumulating sub-samples per
-        frame so global illumination converges and frames hold still.
-      </p>
+    <div class="actions">
+      <a class="btn off" href="#">Paper</a>
+      <a class="btn" href="https://github.com/AlayaLab/WorldRover" target="_blank" rel="noreferrer">GitHub</a>
+      <a class="btn off" href="#">Dataset</a>
+      <a class="btn primary" href="#overview">Explore ↓</a>
     </div>
-    <figure class="reveal">
-      <span class="figure"><img src="static/images/engine.png" alt="WorldRover-Engine architecture overview."></span>
-      <figcaption>
-        <b>Engine overview.</b> Asset processing runs once per scene on a Windows editor host; content
-        generation runs once per sequence, headless, on a multi-GPU Linux host. The two halves meet at
-        a versioned on-disk hand-off, so a campaign is replayable without an editor session.
-      </figcaption>
-    </figure>
-  </section>
+  </div>
+</header>
 
-  <!-- ===================== VIEWPOINTS ===================== -->
-  <section class="section" id="viewpoints">
-    <div class="section-heading reveal">
-      <div>
-        <p class="kicker">Three camera viewpoints</p>
-        <h2>One walk, seen three ways.</h2>
-      </div>
-      <p>
-        The editor records one first-person camera trajectory per route, and the other two viewpoints
-        are rendered from that same recording — three observations of the same walk, at the same
-        instants and under the same scene and lighting.
-      </p>
-    </div>
-    <div class="grid cols-3 reveal">
+<!-- ============ STATS ============ -->
+<div class="stats">
+  <div class="stat"><b>10M</b><span>Frames</span></div>
+  <div class="stat"><b>30+</b><span>Scenes</span></div>
+  <div class="stat"><b>70+</b><span>Characters</span></div>
+  <div class="stat"><b>3</b><span>Viewpoints</span></div>
+  <div class="stat"><b>6</b><span>Modalities</span></div>
+</div>
+
+<!-- ============ OVERVIEW ============ -->
+<section class="block" id="overview">
+  <div class="wrap">
+    <p class="label rv">Overview</p>
+    <h2 class="rv">One traversal, many observations.</h2>
+    <p class="note rv">A camera walks a route through an artist-built Unreal Engine world. Every annotation falls out of the render itself — nothing is labelled by hand.</p>
+    <figure class="rv">
+      <div class="frame"><img src="static/images/teaser.jpg" alt="WorldRover-10M dataset overview: viewpoints, scene styles and motion labels."></div>
+    </figure>
+  </div>
+</section>
+
+<!-- ============ VIEWPOINTS ============ -->
+<section class="block" id="viewpoints">
+  <div class="wrap">
+    <p class="label rv">Viewpoints</p>
+    <h2 class="rv">One walk, seen three ways.</h2>
+    <div class="cards rv">
       <div class="card">
-        <span class="tag">First-person</span>
-        <h3>Egocentric</h3>
-        <p>An eye-height camera rides the trajectory itself. The camera <em>is</em> the agent, so
-        imagery, pose and the action stream are mutually consistent by definition — matching egocentric
-        video and embodied navigation.</p>
-      </div>
-      <div class="card">
-        <span class="tag">Third-person</span>
-        <h3>Following an actor</h3>
-        <p>An animated character replays the recorded path while a follow camera holds a fixed world
-        azimuth. Camera and character move independently, with exact ground truth for both — the setting
-        of 4D reconstruction of a deforming subject.</p>
-      </div>
-      <div class="card">
-        <span class="tag">360&deg; panoramic</span>
-        <h3>Whole-scene</h3>
-        <p>Equirectangular video at 4096&times;2048, assembled from six perspective cube faces in linear
-        light, with no field-of-view choice baked in — sharing camera centres with the first-person
-        view.</p>
-      </div>
-    </div>
-    <figure class="reveal">
-      <span class="figure"><img src="static/images/thirdperson_controls.jpg" alt="Third-person control semantics."></span>
-      <figcaption>
-        <b>Third-person control semantics.</b> W/A/S/D translate the character along camera-relative
-        directions while it turns to face its heading; the camera keeps a fixed world azimuth and merely
-        follows. L/R yaw the camera about a stationary character, so the character holds its image
-        position while the scene rotates around it.
-      </figcaption>
-    </figure>
-    <figure class="reveal">
-      <span class="figure"><img src="static/images/panoramic.png" alt="Panoramic assembly from six cube faces."></span>
-      <figcaption>
-        <b>Panoramic assembly.</b> Six cube faces at 100&deg; FOV (10&deg; overlap) are rendered with
-        tone mapping disabled so every face shares one radiometric scale, reprojected onto one
-        equirectangular image, merged with a cos-weighted feather blend, and re-exposed once — a seamless
-        linear-HDR panorama.
-      </figcaption>
-    </figure>
-  </section>
-
-  <!-- ===================== MODALITIES ===================== -->
-  <section class="section" id="modalities">
-    <div class="section-heading reveal">
-      <div>
-        <p class="kicker">Multimodal data &amp; annotations</p>
-        <h2>Six modalities, aligned<br>on the same pixels.</h2>
-      </div>
-      <p>
-        Movie Render Queue renders each frame through a single configuration that writes colour, a depth
-        layer and a velocity layer into one multi-layer EXR. Colour, depth and motion are therefore the
-        same rasterization of the same instant, and the camera annotation is the camera that produced
-        that frame.
-      </p>
-    </div>
-    <div class="grid cols-3 reveal">
-      <div class="card"><h3>RGB video</h3><p>Photorealistic colour under dynamic Lumen global
-        illumination, offline-accumulated. First/third-person at 1280&times;720; panoramic at
-        4096&times;2048.</p></div>
-      <div class="card"><h3>Metric depth</h3><p>Radial distance in metres, log-quantized to 16 bits over
-        0.1–200&nbsp;m — a ~0.12&nbsp;mm step at 1&nbsp;m — encoded losslessly with a decode sidecar.</p></div>
-      <div class="card"><h3>Optical flow</h3><p>Dense ground-truth screen-space motion from the engine's
-        velocity buffer, exact even on untextured surfaces, repetitive structure and large displacements
-        <em>(third-person)</em>.</p></div>
-      <div class="card"><h3>Long-range point tracks</h3><p>Geometric, not matched: 3D position, 2D
-        projection and a visibility flag per frame, held <em>amodally</em> through occlusion — never
-        lost, never drifting <em>(third-person)</em>.</p></div>
-      <div class="card"><h3>Camera trajectory</h3><p>Per-frame position, orientation and intrinsics of the
-        camera actually rendered — camera conditioning is exact rather than estimated.</p></div>
-      <div class="card"><h3>Action stream</h3><p>The control signal that would have produced the motion —
-        analog axis events for forward, lateral, turning and vertical motion, aligned to the
-        trajectory.</p></div>
-    </div>
-    <div class="switch reveal" data-switch>
-      <div class="switch-tabs">
-        <button class="switch-tab active" data-img="static/images/states/day.jpg" data-filter="as-rgb"
-          data-badge="RGB" data-cap="Photorealistic colour under dynamic Lumen global illumination — first/third-person at 1280×720, panoramic at 4096×2048.">RGB</button>
-        <button class="switch-tab" data-img="static/images/states/day.jpg" data-filter="as-depth"
-          data-badge="Metric depth" data-note="illustrative" data-cap="Radial distance in metres, log-quantized to 16 bits over 0.1–200 m — a ~0.12 mm step at 1 m — encoded losslessly with a decode sidecar.">Depth</button>
-        <button class="switch-tab" data-img="static/images/states/day.jpg" data-filter="as-flow"
-          data-badge="Optical flow" data-note="illustrative" data-cap="Dense ground-truth screen-space motion from the engine's velocity buffer — exact on untextured surfaces and large displacements (third-person).">Optical flow</button>
-        <button class="switch-tab" data-img="static/images/tracks.jpg" data-filter="as-rgb"
-          data-badge="Point tracks" data-cap="Long-range 2D/3D point tracks with a per-frame visibility flag, held amodally through occlusion — never lost, never drifting (third-person).">Point tracks</button>
-      </div>
-      <div class="switch-stage">
-        <span class="frame">
-          <span class="badge" data-badge>RGB</span>
-          <img class="as-rgb" data-frame src="static/images/states/day.jpg" alt="Modality preview">
-          <span class="note" data-noteel hidden>illustrative</span>
-        </span>
-      </div>
-      <p class="switch-cap" data-cap>Photorealistic colour under dynamic Lumen global illumination — first/third-person at 1280×720, panoramic at 4096×2048.</p>
-    </div>
-    <div class="table-wrap reveal">
-      <table>
-        <caption>Released data format — a sequence declares its own set of outputs</caption>
-        <thead><tr><th>Data, when present</th><th>Contents</th></tr></thead>
-        <tbody>
-          <tr><td>RGB video</td><td>H.264, hardware-encoded</td></tr>
-          <tr><td>Depth</td><td>16-bit log-quantized, FFV1 lossless, + decode sidecar</td></tr>
-          <tr><td>Optical flow</td><td>16-bit affine-quantized, FFV1 lossless, + sidecar (third-person only)</td></tr>
-          <tr><td>Point tracks</td><td>per-track 3D position, 2D projection and visibility, per frame (third-person only)</td></tr>
-          <tr><td>Camera trajectory</td><td>per-frame pose and intrinsics of the rendered camera</td></tr>
-          <tr><td>Character trajectory</td><td>per-frame pose and speed (third-person only)</td></tr>
-          <tr><td>Action stream</td><td>quantized axis events + binding snapshot</td></tr>
-          <tr><td>Description</td><td>environment, camera, lighting and render metadata</td></tr>
-          <tr><td>Route preview</td><td>plan view of the trajectory</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
-
-  <!-- ===================== APPEARANCE (dark break) ===================== -->
-  <section class="full dark deep" id="appearance">
-    <div class="inner">
-      <div class="section-heading reveal">
-        <div>
-          <p class="kicker light">Appearance as a variable</p>
-          <h2>The same geometry and motion,<br>under any light.</h2>
-        </div>
-        <p>
-          Because lighting is <b>simulated at render time</b> with Lumen rather than baked, re-rendering a
-          moment under another state changes the image physically, not by recolouring — so appearance-induced
-          error can be separated from geometry-induced error.
-        </p>
-      </div>
-      <div class="switch reveal" data-climate style="margin-top:8px">
-        <div class="switch-stage">
-          <span class="frame">
-            <span class="badge" data-badge>Day</span>
-            <img data-frame src="static/images/states/day.jpg" alt="Lighting / weather state">
-          </span>
-        </div>
-        <div class="thumbs">
-          <div class="thumb active" data-img="static/images/states/day.jpg" data-name="Day"><img src="static/images/states/day.jpg" alt="Day"><span>Day</span></div>
-          <div class="thumb" data-img="static/images/states/sunset.jpg" data-name="Sunset"><img src="static/images/states/sunset.jpg" alt="Sunset"><span>Sunset</span></div>
-          <div class="thumb" data-img="static/images/states/night.jpg" data-name="Night"><img src="static/images/states/night.jpg" alt="Night"><span>Night</span></div>
-          <div class="thumb" data-img="static/images/states/firelit.jpg" data-name="Firelit"><img src="static/images/states/firelit.jpg" alt="Firelit"><span>Firelit</span></div>
-          <div class="thumb" data-img="static/images/states/fog.jpg" data-name="Fog"><img src="static/images/states/fog.jpg" alt="Fog"><span>Fog</span></div>
-        </div>
-        <p class="switch-cap"><b style="color:inherit">Diverse appearances.</b> The same first-person frame, from an identical camera at the same instant, under five environmental states. Indirect illumination and shadow softness respond correctly; exposure is held fixed, so <b style="color:inherit">Night</b> stays genuinely dark.</p>
-      </div>
-      <figure class="reveal">
-        <span class="figure"><img src="static/images/whitemodel.jpg" alt="Textured render above, white-model re-render below."></span>
-        <figcaption>
-          <b>White model.</b> The ordinary render (above) and the white-model re-render of the same frame
-          (below). Every surface is drawn in the engine's default material, so geometry and occlusion
-          survive at every scale while texture, colour and emissive light do not — the coarse-to-real
-          supervision a generative renderer is trained against.
-        </figcaption>
-      </figure>
-    </div>
-  </section>
-
-  <!-- ===================== DIVERSITY ===================== -->
-  <section class="section" id="diversity">
-    <div class="section-heading reveal">
-      <div>
-        <p class="kicker">Diversity &amp; scale</p>
-        <h2>Film-grade content,<br>multiplied by combinatorics.</h2>
-      </div>
-      <p>
-        WorldRover takes the artist-built side of the photorealism-vs-diversity trade-off and buys
-        quantity back through combinatorics — scenes &times; states &times; viewpoints &times; characters
-        &times; routes — so imagery stays film-grade while the dataset keeps growing.
-      </p>
-    </div>
-    <figure class="reveal" style="margin-top:8px">
-      <span class="figure"><img src="static/images/scenes.jpg" alt="A sample of the WorldRover scene library."></span>
-      <figcaption>
-        <b>Scene library.</b> Fifteen of 30+ Unreal Engine environments — waterfront city, transit
-        interior, cathedral, alpine meadow, cyberpunk street, office interior, Paris street, suburban home,
-        jungle ruin, and more — all rendered under dynamic Lumen global illumination.
-      </figcaption>
-    </figure>
-    <div class="grid cols-2 reveal" style="margin-top:34px">
-      <figure style="margin:0">
-        <span class="figure"><img src="static/images/characters_humanoid.jpg" alt="Humanoid character library."></span>
-        <figcaption><b>Characters — humanoids.</b></figcaption>
-      </figure>
-      <figure style="margin:0">
-        <span class="figure"><img src="static/images/characters_animal.jpg" alt="Animal and creature character library."></span>
-        <figcaption><b>Characters — animals &amp; creatures.</b> 70+ animated characters differ in body
-        plan, gait and how they turn — subject articulation as its own diversity axis.</figcaption>
-      </figure>
-    </div>
-    <div class="table-wrap reveal">
-      <table>
-        <caption>Diversity axes — a sequence is one point in their product</caption>
-        <thead><tr><th>Axis</th><th>Values</th></tr></thead>
-        <tbody>
-          <tr><td>Environments</td><td>30+ artist-built UE scenes, interior to city scale</td></tr>
-          <tr><td>Lighting states</td><td>day, dawn, evening, sunset, night</td></tr>
-          <tr><td>Weather states</td><td>clear, overcast, fog, snow</td></tr>
-          <tr><td>Appearance</td><td>textured render, or untextured white model</td></tr>
-          <tr><td>Characters</td><td>70+ animated humanoids, animals and creatures</td></tr>
-          <tr><td>Routes</td><td>navmesh planner, reactive explorer, manual recording</td></tr>
-          <tr><td>Scales by</td><td>scene &times; state &times; character &times; route &times; viewpoint</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
-
-  <!-- ===================== APPLICATIONS (orange) ===================== -->
-  <section class="full sources" id="applications">
-    <div class="inner intro reveal" style="text-align:center;max-width:820px;margin-inline:auto">
-      <p class="kicker">Applications</p>
-      <h2>Built for three problems,<br>on the same pixels.</h2>
-    </div>
-    <div class="source-cards reveal">
-      <article>
         <span class="idx">01</span>
-        <h3>Interactive world models</h3>
-        <p>RGB, depth and, per sequence, the recorded camera and action stream — camera conditioning is
-        exact, and third-person separates the camera from the acting subject.</p>
-      </article>
-      <article>
+        <h3>First-person</h3>
+        <p>An eye-height camera rides the trajectory. Image, pose and action agree by construction.</p>
+      </div>
+      <div class="card">
         <span class="idx">02</span>
-        <h3>Dynamic 4D reconstruction</h3>
-        <p>Dense flow and long-range tracks through occlusion, over an articulated deforming subject
-        observed by an independently moving camera, with ground truth for both.</p>
-      </article>
-      <article>
+        <h3>Third-person</h3>
+        <p>A character replays the path while the camera follows independently — ground truth for both.</p>
+      </div>
+      <div class="card">
         <span class="idx">03</span>
-        <h3>Generative rendering</h3>
-        <p>The white model pairs coarse structure with the finished image frame-for-frame; the appearance
-        axes extend the pairing across day, night, fog and snow.</p>
-      </article>
-    </div>
-  </section>
-
-  <!-- ===================== ACCESS CTA ===================== -->
-  <section class="access" id="access">
-    <div class="access-box reveal">
-      <p class="kicker">Preview release</p>
-      <h2>Get WorldRover-10M.</h2>
-      <p>The preview establishes the data schema and the validated annotation scope. Paper, dataset and
-      release schedule are on the way — code and updates live on GitHub.</p>
-      <div class="hero-actions">
-        <a class="button dark" href="https://github.com/AlayaLab/WorldRover" target="_blank" rel="noreferrer">Code on GitHub</a>
-        <a class="button line disabled" href="#" aria-disabled="true">Dataset (coming soon)</a>
-        <a class="button line disabled" href="#" aria-disabled="true">Paper (coming soon)</a>
+        <h3>360° panoramic</h3>
+        <p>Equirectangular 4096×2048, stitched from six cube faces in linear light. No FOV baked in.</p>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- ===================== BIBTEX ===================== -->
-  <section class="bibtex" id="bibtex">
-    <h2>BibTeX</h2>
-<pre><code>@article{worldrover2026,
+<!-- ============ MODALITIES ============ -->
+<section class="block" id="modalities">
+  <div class="wrap">
+    <p class="label rv">Modalities</p>
+    <h2 class="rv">Six signals, same pixels.</h2>
+    <div class="mods rv">
+      <div class="mod"><b>RGB</b><span>720p · 4K pano · Lumen GI</span></div>
+      <div class="mod"><b>Metric depth</b><span>16-bit log · 0.1–200 m</span></div>
+      <div class="mod"><b>Optical flow</b><span>Engine velocity buffer</span></div>
+      <div class="mod"><b>Point tracks</b><span>2D + 3D · amodal</span></div>
+      <div class="mod"><b>Camera</b><span>Per-frame pose + intrinsics</span></div>
+      <div class="mod"><b>Action</b><span>Analog axis stream</span></div>
+    </div>
+    <figure class="rv" style="margin-top:16px">
+      <div class="frame"><img src="static/images/tracks.jpg" alt="Long-range point tracks held through occlusion."></div>
+      <figcaption>Long-range point tracks — held through occlusion, never drifting.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ============ APPEARANCE ============ -->
+<section class="block" id="appearance">
+  <div class="wrap">
+    <p class="label rv">Appearance</p>
+    <h2 class="rv">Same geometry, any light.</h2>
+    <p class="note rv">Lighting is simulated at render time, so re-rendering a moment changes the image physically — not by recolouring.</p>
+
+    <div class="switch rv">
+      <div class="switch-stage" data-stage>
+        <img src="static/images/states/day.jpg" alt="Lighting state">
+        <span class="tag">Day</span>
+      </div>
+      <div class="thumbs">
+        <button class="thumb on" data-img="static/images/states/day.jpg" data-name="Day"><img src="static/images/states/day.jpg" alt=""><span>Day</span></button>
+        <button class="thumb" data-img="static/images/states/sunset.jpg" data-name="Sunset"><img src="static/images/states/sunset.jpg" alt=""><span>Sunset</span></button>
+        <button class="thumb" data-img="static/images/states/night.jpg" data-name="Night"><img src="static/images/states/night.jpg" alt=""><span>Night</span></button>
+        <button class="thumb" data-img="static/images/states/firelit.jpg" data-name="Firelit"><img src="static/images/states/firelit.jpg" alt=""><span>Firelit</span></button>
+        <button class="thumb" data-img="static/images/states/fog.jpg" data-name="Fog"><img src="static/images/states/fog.jpg" alt=""><span>Fog</span></button>
+      </div>
+    </div>
+
+    <figure class="rv" style="margin-top:34px">
+      <div class="frame"><img src="static/images/whitemodel.jpg" alt="Textured render above, white-model re-render below."></div>
+      <figcaption>White model — geometry and occlusion without texture, colour or emissive light.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ============ DIVERSITY ============ -->
+<section class="block" id="diversity">
+  <div class="wrap">
+    <p class="label rv">Diversity</p>
+    <h2 class="rv">Film-grade content × combinatorics.</h2>
+    <p class="note rv">Scenes × states × viewpoints × characters × routes — quality stays artist-built, quantity comes from the product.</p>
+    <figure class="rv">
+      <div class="frame"><img src="static/images/scenes.jpg" alt="A sample of the WorldRover scene library."></div>
+      <figcaption>15 of 30+ Unreal Engine environments, interior to city scale.</figcaption>
+    </figure>
+    <div class="cards two rv" style="margin-top:16px">
+      <figure>
+        <div class="frame"><img src="static/images/characters_humanoid.jpg" alt="Humanoid characters."></div>
+        <figcaption>Humanoids.</figcaption>
+      </figure>
+      <figure>
+        <div class="frame"><img src="static/images/characters_animal.jpg" alt="Animal and creature characters."></div>
+        <figcaption>Animals &amp; creatures — 70+ in total.</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ============ APPLICATIONS ============ -->
+<section class="block" id="applications">
+  <div class="wrap">
+    <p class="label rv">Applications</p>
+    <h2 class="rv">Three problems, one corpus.</h2>
+    <div class="cards rv">
+      <div class="card"><span class="idx">01</span><h3>Interactive world models</h3><p>Exact camera conditioning and a recorded action stream.</p></div>
+      <div class="card"><span class="idx">02</span><h3>Dynamic 4D reconstruction</h3><p>Flow and tracks over a deforming subject, camera moving freely.</p></div>
+      <div class="card"><span class="idx">03</span><h3>Generative rendering</h3><p>White model paired frame-for-frame with the finished image.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BIBTEX ============ -->
+<section class="block" id="bibtex">
+  <div class="wrap">
+    <p class="label rv">Citation</p>
+<pre class="rv"><code>@article{worldrover2026,
   title   = {WorldRover: A Scalable Synthetic Video Data Engine
              for World Exploration with Rich Annotations},
   author  = {Xu, Xiaojie and Lin, Zhengyuan and Li, Runyi and
@@ -416,15 +193,13 @@
   journal = {arXiv preprint},
   year    = {2026}
 }</code></pre>
-  </section>
-
-</main>
+  </div>
+</section>
 
 <footer>
-  <p>WorldRover &middot; a preview release from Alaya Lab.</p>
-  <span>Website source on <a href="https://github.com/AlayaLab/WorldRover">GitHub</a>.</span>
+  Alaya Lab · Preview Release 2026 · <a href="https://github.com/AlayaLab/WorldRover">Source</a>
 </footer>
 
-<script src="static/js/script.js"></script>
+<script src="static/js/cyber.js"></script>
 </body>
 </html>
