@@ -158,13 +158,14 @@ h2.title{font-size:clamp(28px,3.6vw,44px);line-height:1.1;letter-spacing:-.02em;
 
 .vgrid{display:flex;flex-wrap:wrap;justify-content:center;gap:16px;margin-top:30px}
 .vgrid > figure{flex:0 1 calc((100% - 2 * 16px) / 3);min-width:0}
-/* two per row, but each tile the same width as a three-column row:
-   cap the container at exactly two tiles plus one gap */
+/* Multi-View runs a little narrower than the full column */
 .shrink{max-width:80%;margin-inline:auto}
-/* two tiles filling the row (Multi-View) */
+/* two tiles filling their row (Multi-View) */
 .vgrid.half > figure{flex-basis:calc((100% - 16px) / 2)}
 /* equirectangular panorama keeps its true 2:1 frame */
 .stage.pano video{aspect-ratio:2 / 1}
+/* two per row, but each tile the same width as a three-column row:
+   cap the container at exactly two tiles plus one gap */
 .vgrid.two{max-width:calc((100% - 32px) * 2 / 3 + 16px);margin-left:auto;margin-right:auto}
 .vgrid.two > figure{flex-basis:calc((100% - 16px) / 2)}
 
@@ -217,16 +218,14 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
   .release-links__grid{grid-template-columns:repeat(3,1fr)}
   .side-nav{display:none}
   .vgrid > figure{flex-basis:calc((100% - 16px) / 2)}
-  .shrink{max-width:80%;margin-inline:auto}
-/* two tiles filling the row (Multi-View) */
-.vgrid.half > figure{flex-basis:calc((100% - 16px) / 2)}
-/* equirectangular panorama keeps its true 2:1 frame */
-.stage.pano video{aspect-ratio:2 / 1}
-.vgrid.two{max-width:none}
+  .vgrid.two{max-width:none}
+  .shrink{max-width:none}
   .duo{grid-template-columns:1fr}
 }
 
 @media(max-width:600px){
-  .vgrid > figure{flex-basis:100%}
+  .vgrid > figure,
+  .vgrid.two > figure,
+  .vgrid.half > figure{flex-basis:100%}
   section.block{padding:52px 0}
 }
