@@ -66,8 +66,14 @@ body{background:
 /* ---------- panels ---------- */
 
 /* Blizzard clips the corners of its panels rather than rounding them. */
-.release-links,.tldr-card,.stat-card,.figure,.stage,.media-frame,pre{
+.release-links,.tldr-card,.stat-card,.figure,.stage,pre{
   clip-path:polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px)}
+
+/* The hero figures are white documents whose own card is rounded, so a square
+   corner leaves a few pixels of white against the dark page. Cut all four. */
+.media-frame{
+  clip-path:polygon(12px 0, calc(100% - 12px) 0, 100% 12px, 100% calc(100% - 12px),
+                    calc(100% - 12px) 100%, 12px 100%, 0 calc(100% - 12px), 0 12px)}
 
 .release-link{border-radius:0;text-transform:uppercase;letter-spacing:.08em;font-size:12px;font-weight:600}
 .release-link:hover{border-color:var(--accent);background:rgba(255,221,153,.10)}
