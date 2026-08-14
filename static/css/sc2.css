@@ -1,0 +1,108 @@
+/* WorldRover — StarCraft II palette. Loaded after site.css.
+   Colours sampled from starcraft2.blizzard.com: deep navy #001845, bright blue
+   #0E86CA, pale blue #CCE6FF, gold #FFDD99. Blizzard's UI is angular — square
+   corners, gold hairline buttons, clipped panel edges — so the radii go to 0
+   and the accent glows become sharp gold rules. */
+
+:root{
+  --accent:#ffdd99;              /* gold — the "立即暢玩" button */
+  --accent-2:#4fb8ee;            /* protoss blue */
+  --accent-glow:rgba(255,221,153,.28);
+  --bg:#03070f;
+  --bg-2:#001028;
+  --navy:#001845;
+  --steel:#0e86ca;
+  --card:rgba(14,134,202,.07);
+  --card-hover:rgba(14,134,202,.13);
+  --text:#eaf3fb;
+  --text-2:rgba(204,230,255,.80);
+  --dim:rgba(204,230,255,.50);
+  --border:rgba(204,230,255,.16);
+  --border-accent:rgba(255,221,153,.45);
+  --radius:0px;
+  /* body stays Source Sans — what Blizzard itself uses, and what long
+     paragraphs need. Chakra Petch carries the display layer: its clipped
+     terminals echo the panel corner cuts. It covers titles,
+     section headings, badges, stat numbers and the rail. */
+  --font:"Source Sans 3","Source Sans Pro",ui-sans-serif,system-ui,"Noto Sans SC",sans-serif;
+  --mono:"Chakra Petch",ui-sans-serif,system-ui,sans-serif;
+}
+
+/* ---------- ground ---------- */
+
+/* starfield + meteors (static/js/stars.js injects the canvas) */
+.sky{position:fixed;inset:0;z-index:0;pointer-events:none}
+
+
+body{background:
+  radial-gradient(ellipse 90% 50% at 50% 0%, rgba(0,24,69,.85), transparent 70%),
+  var(--bg)}
+
+.grid-bg{
+  background-image:linear-gradient(rgba(204,230,255,.05) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(204,230,255,.05) 1px,transparent 1px);
+  background-size:72px 72px}
+
+.glow.a{background:radial-gradient(circle,rgba(14,134,202,.42),transparent 70%)}
+.glow.b{background:radial-gradient(circle,rgba(255,221,153,.16),transparent 70%)}
+
+.scroll-progress{background:linear-gradient(90deg,var(--steel),var(--accent))}
+
+/* ---------- side rail ---------- */
+
+.side-nav a{font-weight:600;letter-spacing:.2em}
+.side-nav a.on{color:var(--accent)}
+
+/* ---------- hero ---------- */
+
+.hero-tag{border-radius:0;border-color:var(--border-accent);color:var(--accent);font-weight:600}
+
+.hero-title{font-family:var(--mono);text-transform:uppercase;letter-spacing:.01em;
+  font-weight:700}
+.grad-accent{background:linear-gradient(180deg,#ffffff 0%,#cfe4f7 45%,#7fa8cc 100%);
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+  filter:drop-shadow(0 0 26px rgba(14,134,202,.45))}
+
+/* ---------- panels ---------- */
+
+/* Blizzard clips the corners of its panels rather than rounding them. */
+.release-links,.tldr-card,.stat-card,.figure,.stage,.media-frame,pre{
+  clip-path:polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px)}
+
+.release-link{border-radius:0;text-transform:uppercase;letter-spacing:.08em;font-size:12px;font-weight:600}
+.release-link:hover{border-color:var(--accent);background:rgba(255,221,153,.10)}
+
+.tldr-card{background:linear-gradient(180deg,rgba(14,134,202,.14),rgba(0,24,69,.25));
+  border-color:var(--border-accent)}
+.tldr-title{color:var(--accent);font-weight:700;letter-spacing:.24em}
+.tldr-list li::before{border-radius:0;transform:rotate(45deg);background:var(--accent);
+  box-shadow:0 0 12px var(--accent-glow)}
+
+/* ---------- sections ---------- */
+
+.eyebrow{color:var(--accent-2);font-weight:600;letter-spacing:.24em}
+h2.title{font-family:var(--mono);text-transform:uppercase;letter-spacing:.03em}
+
+/* ---------- stats ---------- */
+
+.stat-card--hi{background:linear-gradient(180deg,rgba(255,221,153,.12),rgba(255,221,153,.02));
+  border-color:var(--border-accent)}
+.stat-value{font-family:var(--mono);background:linear-gradient(180deg,#ffffff,var(--accent));
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+  font-weight:700;letter-spacing:0}
+.stat-card:hover{border-color:var(--accent)}
+
+/* ---------- media ---------- */
+
+.badge{border-radius:0;background:rgba(0,16,40,.82);border-color:var(--border-accent);
+  color:var(--accent);text-transform:uppercase;letter-spacing:.14em;font-weight:600}
+.stage:hover{border-color:var(--accent)}
+.figcap{background:rgba(0,16,40,.5)}
+.media-cap{text-transform:uppercase;letter-spacing:.14em}
+
+.vid-note b{color:var(--accent)}
+
+/* ---------- code + footer ---------- */
+
+pre{background:rgba(0,16,40,.7);color:#cce6ff;border-color:var(--border)}
+footer{border-top:1px solid rgba(204,230,255,.18)}

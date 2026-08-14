@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>WorldRover: A Scalable Synthetic Video Data Engine for World Exploration</title>
-<meta name="description" content="WorldRover — a rendering engine and a 10M-frame dataset of explorable worlds, where every frame carries exact depth, motion, camera and control.">
+<title>WorldRover · StarCraft palette — A Scalable Synthetic Video Data Engine for World Exploration</title>
+<meta name="description" content="WorldRover — a data engine for generating richly annotated, long-range explorations of artist-built environments.">
 
-<meta property="og:title" content="WorldRover">
-<meta property="og:description" content="A rendering engine and a 10M-frame dataset of explorable worlds, where every frame carries exact geometry, motion, camera and control.">
+<meta property="og:title" content="WorldRover: A Scalable Synthetic Video Data Engine for World Exploration">
+<meta property="og:description" content="A data engine for generating richly annotated, long-range explorations of artist-built environments.">
 <meta property="og:url" content="https://alayalab.github.io/WorldRover/">
 <meta property="og:image" content="https://alayalab.github.io/WorldRover/static/images/teaser.jpg">
 <meta name="twitter:card" content="summary_large_image">
@@ -15,177 +15,294 @@
 <link rel="icon" href="data:,">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="static/css/cyber.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=Chakra+Petch:wght@500;600;700&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="static/css/site.css">
+<link rel="stylesheet" href="static/css/sc2.css">
 </head>
 <body>
 
-<!-- ============ HERO ============ -->
-<header class="hero">
-  <div class="grid-bg"></div>
-  <div class="glow"></div>
-  <div class="wrap">
-    <h1>World<span>Rover</span></h1>
-    <p class="tagline">A scalable synthetic video data engine for world exploration — with exact geometry, motion, camera and control on every frame.</p>
+<div class="grid-bg"></div>
+<div class="glow a"></div>
+<div class="glow b"></div>
+<div class="scroll-progress" id="progress"></div>
 
-    <p class="authors">
-      <span>Xiaojie Xu<sup>1,2,*</sup></span>
-      <span>Zhengyuan Lin<sup>1,2,*</sup></span>
-      <span>Runyi Li<sup>1,2</sup></span>
-      <span>Yihao Liu<sup>1</sup></span>
-      <span>Kaipeng Zhang<sup>1,3,†</sup></span>
-      <span>Yongtao Ge<sup>1,†</sup></span>
-    </p>
-    <p class="affil">
-      <span><sup>1</sup>Alaya Lab</span>
-      <span><sup>2</sup>The University of Tokyo</span>
-      <span><sup>3</sup>Shanghai Innovation Institute</span>
-    </p>
+<nav class="side-nav">
+  <a class="home" href="#top"><span class="lbl">WorldRover</span><span class="bar"></span></a>
+  <a href="#multi-view"><span class="lbl">View</span><span class="bar"></span></a>
+  <a href="#multi-modal"><span class="lbl">Modal</span><span class="bar"></span></a>
+  <a href="#multi-style"><span class="lbl">Style</span><span class="bar"></span></a>
+  <a href="#multi-scene"><span class="lbl">Scene</span><span class="bar"></span></a>
+  <a href="#multi-character"><span class="lbl">Character</span><span class="bar"></span></a>
+</nav>
 
-    <div class="actions">
-      <a class="btn off" href="#">Paper</a>
-      <a class="btn" href="https://github.com/AlayaLab/WorldRover" target="_blank" rel="noreferrer">GitHub</a>
-      <a class="btn off" href="#">Dataset</a>
-      <a class="btn primary" href="#overview">Explore ↓</a>
-    </div>
-  </div>
-</header>
+<main id="top">
 
-<!-- ============ STATS ============ -->
-<div class="stats">
-  <div class="stat"><b>10M</b><span>Frames</span></div>
-  <div class="stat"><b>30+</b><span>Scenes</span></div>
-  <div class="stat"><b>70+</b><span>Characters</span></div>
-  <div class="stat"><b>3</b><span>Viewpoints</span></div>
-  <div class="stat"><b>6</b><span>Modalities</span></div>
-</div>
+  <!-- ================= HERO ================= -->
+  <section class="article-hero">
+    <div class="wrap hero-grid">
+      <div class="hero-text">
+        <h1 class="hero-title"><span class="grad-accent">WorldRover</span></h1>
+        <p class="hero-sub">A Scalable Synthetic Video Data Engine for World Exploration with Rich Annotations</p>
+        <p class="hero-authors">
+          Xiaojie Xu<sup>1,2,*</sup> &nbsp; Zhengyuan Lin<sup>1,2,*</sup> &nbsp; Runyi Li<sup>1,2</sup> &nbsp;
+          Yihao Liu<sup>1</sup> &nbsp; Kaipeng Zhang<sup>1,3,†</sup> &nbsp; Yongtao Ge<sup>1,†</sup>
+        </p>
+        <p class="hero-affil"><sup>1</sup> Alaya Lab · <sup>2</sup> The University of Tokyo · <sup>3</sup> Shanghai Innovation Institute · <sup>*</sup> Equal · <sup>†</sup> Corresponding</p>
 
-<!-- ============ OVERVIEW ============ -->
-<section class="block" id="overview">
-  <div class="wrap">
-    <p class="label rv">Overview</p>
-    <h2 class="rv">One traversal, many observations.</h2>
-    <p class="note rv">A camera walks a route through an artist-built Unreal Engine world. Every annotation falls out of the render itself — nothing is labelled by hand.</p>
-    <figure class="rv">
-      <div class="frame"><img src="static/images/teaser.jpg" alt="WorldRover-10M dataset overview: viewpoints, scene styles and motion labels."></div>
-    </figure>
-  </div>
-</section>
+        <div class="release-links">
+          <div class="release-links__title">Resources</div>
+          <div class="release-links__grid">
+            <a class="release-link release-link--dim" href="#"><i class="fas fa-file-pdf"></i> Paper</a>
+            <a class="release-link release-link--dim" href="#"><i class="fas fa-database"></i> Data</a>
+            <a class="release-link release-link--dim" href="#"><i class="fab fa-github"></i> Code (coming)</a>
+          </div>
+        </div>
 
-<!-- ============ VIEWPOINTS ============ -->
-<section class="block" id="viewpoints">
-  <div class="wrap">
-    <p class="label rv">Viewpoints</p>
-    <h2 class="rv">One walk, seen three ways.</h2>
-    <div class="cards rv">
-      <div class="card">
-        <span class="idx">01</span>
-        <h3>First-person</h3>
-        <p>An eye-height camera rides the trajectory. Image, pose and action agree by construction.</p>
+        <div class="tldr-card">
+          <div class="tldr-title">Highlights</div>
+          <ul class="tldr-list">
+            <li>A scalable UE data engine that <strong>ingests UE assets, builds multi-style scenes, plans routes, and renders them headless with streaming post-processing</strong>.</li>
+            <li>The same exploration replayed from <strong>first-person, third-person and 360° panoramic</strong> cameras under different environmental states.</li>
+            <li>Sequences pair RGB with <strong>metric depth, optical flow, long-range point tracks, camera trajectories and action signals</strong> throughout each exploration.</li>
+          </ul>
+        </div>
+
+        <div class="stats-grid hero-stats">
+          <div class="stat-card stat-card--hi"><div class="stat-value">21.9M</div><div class="stat-label">Frames</div></div>
+          <div class="stat-card stat-card--hi"><div class="stat-value">6,003</div><div class="stat-label">Sequences</div></div>
+          <div class="stat-card"><div class="stat-value">32</div><div class="stat-label">Environments</div></div>
+          <div class="stat-card"><div class="stat-value">202.7 h</div><div class="stat-label">Duration</div></div>
+          <div class="stat-card"><div class="stat-value">18.7 TB</div><div class="stat-label">Volume</div></div>
+        </div>
       </div>
-      <div class="card">
-        <span class="idx">02</span>
-        <h3>Third-person</h3>
-        <p>A character replays the path while the camera follows independently — ground truth for both.</p>
-      </div>
-      <div class="card">
-        <span class="idx">03</span>
-        <h3>360° panoramic</h3>
-        <p>Equirectangular 4096×2048, stitched from six cube faces in linear light. No FOV baked in.</p>
+
+      <div class="hero-media">
+        <div class="media-frame">
+          <img src="static/images/teaser.jpg" alt="WorldRover-10M at a glance: diverse viewpoints, scene styles and motion labels.">
+        </div>
+        <div class="media-frame">
+          <img src="static/images/engine.gif" alt="WorldRover-Engine pipeline, each stage highlighted in turn: asset processing on a Windows editor host, content generation headless on a multi-GPU Linux host.">
+        </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- ============ MODALITIES ============ -->
-<section class="block" id="modalities">
-  <div class="wrap">
-    <p class="label rv">Modalities</p>
-    <h2 class="rv">Six signals, same pixels.</h2>
-    <div class="mods rv">
-      <div class="mod"><b>RGB</b><span>720p · 4K pano · Lumen GI</span></div>
-      <div class="mod"><b>Metric depth</b><span>16-bit log · 0.1–200 m</span></div>
-      <div class="mod"><b>Optical flow</b><span>Engine velocity buffer</span></div>
-      <div class="mod"><b>Point tracks</b><span>2D + 3D · amodal</span></div>
-      <div class="mod"><b>Camera</b><span>Per-frame pose + intrinsics</span></div>
-      <div class="mod"><b>Action</b><span>Analog axis stream</span></div>
-    </div>
-    <figure class="rv" style="margin-top:16px">
-      <div class="frame"><img src="static/images/tracks.jpg" alt="Long-range point tracks held through occlusion."></div>
-      <figcaption>Long-range point tracks — held through occlusion, never drifting.</figcaption>
-    </figure>
-  </div>
-</section>
-
-<!-- ============ APPEARANCE ============ -->
-<section class="block" id="appearance">
-  <div class="wrap">
-    <p class="label rv">Appearance</p>
-    <h2 class="rv">Same geometry, any light.</h2>
-    <p class="note rv">Lighting is simulated at render time, so re-rendering a moment changes the image physically — not by recolouring.</p>
-
-    <div class="switch rv">
-      <div class="switch-stage" data-stage>
-        <img src="static/images/states/day.jpg" alt="Lighting state">
-        <span class="tag">Day</span>
-      </div>
-      <div class="thumbs">
-        <button class="thumb on" data-img="static/images/states/day.jpg" data-name="Day"><img src="static/images/states/day.jpg" alt=""><span>Day</span></button>
-        <button class="thumb" data-img="static/images/states/sunset.jpg" data-name="Sunset"><img src="static/images/states/sunset.jpg" alt=""><span>Sunset</span></button>
-        <button class="thumb" data-img="static/images/states/night.jpg" data-name="Night"><img src="static/images/states/night.jpg" alt=""><span>Night</span></button>
-        <button class="thumb" data-img="static/images/states/firelit.jpg" data-name="Firelit"><img src="static/images/states/firelit.jpg" alt=""><span>Firelit</span></button>
-        <button class="thumb" data-img="static/images/states/fog.jpg" data-name="Fog"><img src="static/images/states/fog.jpg" alt=""><span>Fog</span></button>
+  <!-- ================= 02 MULTI-VIEW ================= -->
+  <section class="block" id="multi-view">
+    <div class="wrap reveal">
+      <h2 class="title">Multi-View</h2>
+      <p class="title-sub">Three observations of a route with matched timing and geometry.</p>
+      <div class="shrink" data-sync>
+        <div class="vgrid half">
+        <figure>
+          <div class="stage vid" data-src="static/videos/view/fpv.mp4">
+            <span class="badge">First-person</span>
+            <video muted loop playsinline preload="metadata" poster="static/videos/view/fpv.jpg"></video>
+          </div>
+        </figure>
+        <figure>
+          <div class="stage vid" data-src="static/videos/view/tpv.mp4">
+            <span class="badge">Third-person</span>
+            <video muted loop playsinline preload="metadata" poster="static/videos/view/tpv.jpg"></video>
+          </div>
+        </figure>
+        </div>
+        <div class="vgrid" style="margin-top:16px">
+        <figure style="flex-basis:100%">
+          <div class="stage vid pano" data-src="static/videos/view/pano.mp4">
+            <span class="badge">360° panoramic</span>
+            <video muted loop playsinline preload="metadata" poster="static/videos/view/pano.jpg"></video>
+          </div>
+        </figure>
+        </div>
       </div>
     </div>
+  </section>
 
-    <figure class="rv" style="margin-top:34px">
-      <div class="frame"><img src="static/images/whitemodel.jpg" alt="Textured render above, white-model re-render below."></div>
-      <figcaption>White model — geometry and occlusion without texture, colour or emissive light.</figcaption>
-    </figure>
-  </div>
-</section>
-
-<!-- ============ DIVERSITY ============ -->
-<section class="block" id="diversity">
-  <div class="wrap">
-    <p class="label rv">Diversity</p>
-    <h2 class="rv">Film-grade content × combinatorics.</h2>
-    <p class="note rv">Scenes × states × viewpoints × characters × routes — quality stays artist-built, quantity comes from the product.</p>
-    <figure class="rv">
-      <div class="frame"><img src="static/images/scenes.jpg" alt="A sample of the WorldRover scene library."></div>
-      <figcaption>15 of 30+ Unreal Engine environments, interior to city scale.</figcaption>
-    </figure>
-    <div class="cards two rv" style="margin-top:16px">
-      <figure>
-        <div class="frame"><img src="static/images/characters_humanoid.jpg" alt="Humanoid characters."></div>
-        <figcaption>Humanoids.</figcaption>
-      </figure>
-      <figure>
-        <div class="frame"><img src="static/images/characters_animal.jpg" alt="Animal and creature characters."></div>
-        <figcaption>Animals &amp; creatures — 70+ in total.</figcaption>
-      </figure>
+  <!-- ================= 03 MULTI-MODAL ================= -->
+  <section class="block" id="multi-modal">
+    <div class="wrap reveal">
+      <h2 class="title">Multi-Modal</h2>
+      <p class="title-sub">Colour, depth and motion, one rasterization of the same instant.</p>
+      <div class="vgrid two" data-sync>
+        <figure>
+          <div class="stage vid" data-src="static/videos/motion/rgb.mp4">
+            <span class="badge">RGB video</span>
+            <video muted loop playsinline preload="metadata" poster="static/videos/motion/rgb.jpg"></video>
+          </div>
+        </figure>
+        <figure>
+          <div class="stage vid" data-src="static/videos/motion/depth.mp4">
+            <span class="badge">Metric depth</span>
+            <video muted loop playsinline preload="metadata" poster="static/videos/motion/depth.jpg"></video>
+          </div>
+        </figure>
+        <figure>
+          <div class="stage vid" data-src="static/videos/motion/flow.mp4">
+            <span class="badge">Optical flow</span>
+            <video muted loop playsinline preload="metadata" poster="static/videos/motion/flow.jpg"></video>
+          </div>
+        </figure>
+        <figure>
+          <div class="stage vid" data-src="static/videos/motion/track3d.mp4">
+            <span class="badge">Long-range point tracks</span>
+            <video muted loop playsinline preload="metadata" poster="static/videos/motion/track3d.jpg"></video>
+          </div>
+        </figure>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- ============ APPLICATIONS ============ -->
-<section class="block" id="applications">
-  <div class="wrap">
-    <p class="label rv">Applications</p>
-    <h2 class="rv">Three problems, one corpus.</h2>
-    <div class="cards rv">
-      <div class="card"><span class="idx">01</span><h3>Interactive world models</h3><p>Exact camera conditioning and a recorded action stream.</p></div>
-      <div class="card"><span class="idx">02</span><h3>Dynamic 4D reconstruction</h3><p>Flow and tracks over a deforming subject, camera moving freely.</p></div>
-      <div class="card"><span class="idx">03</span><h3>Generative rendering</h3><p>White model paired frame-for-frame with the finished image.</p></div>
+  <!-- ================= 04 MULTI-STYLE ================= -->
+  <section class="block" id="multi-style">
+    <div class="wrap reveal">
+      <h2 class="title">Multi-Style</h2>
+      <p class="title-sub">Geometry and motion remain fixed while illumination or texture changes.</p>
+      <div class="vgrid" data-sync>
+        <figure>
+          <div class="stage vid" data-src="static/videos/style/day.mp4">
+            <span class="badge">Day</span>
+            <video muted loop playsinline preload="metadata" poster="static/videos/style/day.jpg"></video>
+          </div>
+        </figure>
+        <figure>
+          <div class="stage vid" data-src="static/videos/style/goldenhour.mp4">
+            <span class="badge">Golden hour</span>
+            <video muted loop playsinline preload="metadata" poster="static/videos/style/goldenhour.jpg"></video>
+          </div>
+        </figure>
+        <figure>
+          <div class="stage vid" data-src="static/videos/style/night.mp4">
+            <span class="badge">Night</span>
+            <video muted loop playsinline preload="metadata" poster="static/videos/style/night.jpg"></video>
+          </div>
+        </figure>
+        <figure>
+          <div class="stage vid" data-src="static/videos/style/snow.mp4">
+            <span class="badge">Snow</span>
+            <video muted loop playsinline preload="metadata" poster="static/videos/style/snow.jpg"></video>
+          </div>
+        </figure>
+        <figure>
+          <div class="stage vid" data-src="static/videos/style/storm.mp4">
+            <span class="badge">Storm</span>
+            <video muted loop playsinline preload="metadata" poster="static/videos/style/storm.jpg"></video>
+          </div>
+        </figure>
+      </div>
+      <div class="vgrid">
+        <figure>
+          <div class="stage vid" data-src="static/videos/white/white_venice.mp4">
+            <span class="badge">White model · Venice</span>
+            <video muted loop playsinline preload="metadata" poster="static/videos/white/white_venice.jpg"></video>
+          </div>
+        </figure>
+        <figure>
+          <div class="stage vid" data-src="static/videos/white/white_train_station.mp4">
+            <span class="badge">White model · Train station</span>
+            <video muted loop playsinline preload="metadata" poster="static/videos/white/white_train_station.jpg"></video>
+          </div>
+        </figure>
+        <figure>
+          <div class="stage vid" data-src="static/videos/white/white_vegetation.mp4">
+            <span class="badge">White model · Village</span>
+            <video muted loop playsinline preload="metadata" poster="static/videos/white/white_vegetation.jpg"></video>
+          </div>
+        </figure>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- ============ BIBTEX ============ -->
-<section class="block" id="bibtex">
-  <div class="wrap">
-    <p class="label rv">Citation</p>
-<pre class="rv"><code>@article{worldrover2026,
+  <!-- ================= 05 MULTI-SCENE ================= -->
+  <section class="block" id="multi-scene">
+    <div class="wrap reveal">
+      <h2 class="title">Multi-Scene</h2>
+      <p class="title-sub">30+ artist-built UE scenes, interior to city scale.</p>
+      <div class="vgrid">
+        <figure>
+          <div class="stage vid" data-src="static/videos/scenes/paris_1.mp4">
+            <span class="badge">Paris</span>
+            <video muted loop playsinline preload="metadata" poster="static/videos/scenes/paris_1.jpg"></video>
+          </div>
+        </figure>
+        <figure>
+          <div class="stage vid" data-src="static/videos/scenes/cybertown_1.mp4">
+            <span class="badge">Cyberpunk</span>
+            <video muted loop playsinline preload="metadata" poster="static/videos/scenes/cybertown_1.jpg"></video>
+          </div>
+        </figure>
+        <figure>
+          <div class="stage vid" data-src="static/videos/scenes/mayan_1.mp4">
+            <span class="badge">Mayan</span>
+            <video muted loop playsinline preload="metadata" poster="static/videos/scenes/mayan_1.jpg"></video>
+          </div>
+        </figure>
+        <figure>
+          <div class="stage vid" data-src="static/videos/scenes/realistic_city_1.mp4">
+            <span class="badge">Island city</span>
+            <video muted loop playsinline preload="metadata" poster="static/videos/scenes/realistic_city_1.jpg"></video>
+          </div>
+        </figure>
+        <figure>
+          <div class="stage vid" data-src="static/videos/scenes/art_nouveau_1.mp4">
+            <span class="badge">Art nouveau</span>
+            <video muted loop playsinline preload="metadata" poster="static/videos/scenes/art_nouveau_1.jpg"></video>
+          </div>
+        </figure>
+        <figure>
+          <div class="stage vid" data-src="static/videos/scenes/school_of_magic_1.mp4">
+            <span class="badge">Magic school</span>
+            <video muted loop playsinline preload="metadata" poster="static/videos/scenes/school_of_magic_1.jpg"></video>
+          </div>
+        </figure>
+      </div>    </div>
+  </section>
+
+  <!-- ================= 06 MULTI-CHARACTER ================= -->
+  <section class="block" id="multi-character">
+    <div class="wrap reveal">
+      <h2 class="title">Multi-Character</h2>
+      <p class="title-sub">70+ animated humanoids, animals and creatures.</p>
+      <div class="vgrid">
+        <figure>
+          <div class="stage vid" data-src="static/videos/chars/samurai.mp4">
+            <span class="badge">Samurai</span>
+            <video muted loop playsinline preload="metadata" poster="static/videos/chars/samurai.jpg"></video>
+          </div>
+        </figure>
+        <figure>
+          <div class="stage vid" data-src="static/videos/chars/archer.mp4">
+            <span class="badge">Archer</span>
+            <video muted loop playsinline preload="metadata" poster="static/videos/chars/archer.jpg"></video>
+          </div>
+        </figure>
+        <figure>
+          <div class="stage vid" data-src="static/videos/chars/shadow.mp4">
+            <span class="badge">Shadow</span>
+            <video muted loop playsinline preload="metadata" poster="static/videos/chars/shadow.jpg"></video>
+          </div>
+        </figure>
+        <figure>
+          <div class="stage vid" data-src="static/videos/chars/wolf.mp4">
+            <span class="badge">Wolf</span>
+            <video muted loop playsinline preload="metadata" poster="static/videos/chars/wolf.jpg"></video>
+          </div>
+        </figure>
+        <figure>
+          <div class="stage vid" data-src="static/videos/chars/eagle.mp4">
+            <span class="badge">Eagle</span>
+            <video muted loop playsinline preload="metadata" poster="static/videos/chars/eagle.jpg"></video>
+          </div>
+        </figure>
+      </div>    </div>
+  </section>
+
+  <!-- ================= BIBTEX ================= -->
+  <section class="block" id="bibtex">
+    <div class="wrap reveal">
+      <h2 class="title">BibTeX</h2>
+<pre><code>@article{worldrover2026,
   title   = {WorldRover: A Scalable Synthetic Video Data Engine
              for World Exploration with Rich Annotations},
   author  = {Xu, Xiaojie and Lin, Zhengyuan and Li, Runyi and
@@ -193,13 +310,12 @@
   journal = {arXiv preprint},
   year    = {2026}
 }</code></pre>
-  </div>
-</section>
+    </div>
+  </section>
 
-<footer>
-  Alaya Lab · Preview Release 2026 · <a href="https://github.com/AlayaLab/WorldRover">Source</a>
-</footer>
+</main>
 
-<script src="static/js/cyber.js"></script>
+<script src="static/js/site.js"></script>
+<script src="static/js/stars.js"></script>
 </body>
 </html>

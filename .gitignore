@@ -1,8 +1,18 @@
 .DS_Store
 
-# Source report bundle — not part of the published site
-worldrover_preview_report.zip
+# Source renders. Only the web-encoded copies under static/videos/ are published
+# — see README for the ffmpeg recipe that produces them.
+/scenes/
+/chars/
+/motion/
+/style/
+/white/
+/view/
 
-# Unzipped report sources (local reference only)
-report_src/
-worldrover_preview_report/
+# LaTeX sources for the preview report
+/worldrover_preview_report/
+
+# Local design alternate (Matrix theme), kept out of the published site
+/matrix.html
+/static/css/matrix.css
+/static/js/matrix.js
