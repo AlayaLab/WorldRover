@@ -43,6 +43,8 @@ a{color:var(--accent);text-decoration:none}
 .scroll-progress{position:fixed;top:0;left:0;height:2px;width:0;z-index:9999;
   background:linear-gradient(90deg,var(--accent),#d4a5ff)}
 
+.sky{position:fixed;inset:0;z-index:0;pointer-events:none}
+
 .wrap{width:min(92vw,var(--maxw));margin:0 auto;position:relative;z-index:1}
 
 /* ================= side rail ================= */

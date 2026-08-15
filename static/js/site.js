@@ -32,22 +32,56 @@
     prime(v);
     var p = v.play();
     if (!p || !p.catch) return;
-    p.catch(function () {
-      // refused: remember it, and let the reader start it by hand
+    p.catch(function (err) {
+      // Scrolling fast makes the observer pause a clip that is still starting,
+      // which rejects with AbortError — routine, and not something to surface.
+      // Only a policy refusal (NotAllowedError) means the reader has to start
+      // it by hand.
+      if (!err || err.name !== 'NotAllowedError') return;
       if (blocked.indexOf(box) === -1) blocked.push(box);
       v.controls = true;
     });
   }
 
-  function load(box) {
-    if (box.dataset.loaded === '1') return;
+  // A browser opens at most six connections per host. Letting every tile that
+  // drifts into range start fetching at once fills all six with video and
+  // stalls whatever comes next, so admit a few at a time and queue the rest.
+  var MAX_FETCHING = 3;
+  var fetching = 0;
+  var queue = [];
+
+  function pump() {
+    while (fetching < MAX_FETCHING && queue.length) { begin(queue.shift()); }
+  }
+
+  function done(box) {
+    if (box.dataset.fetching !== '1') return;
+    box.dataset.fetching = '0';
+    fetching--;
+    pump();
+  }
+
+  function begin(box) {
     var v = box.querySelector('video');
     var src = box.dataset.src;
     if (!v || !src) return;
+    fetching++;
+    box.dataset.fetching = '1';
+    v.addEventListener('error', function () { done(box); placeholder(box, src); });
+    // enough buffered to start: release the slot to the next tile
+    v.addEventListener('canplay', function () { done(box); });
+    v.addEventListener('loadeddata', function () { done(box); });
+    v.src = src;
+  }
+
+  function load(box) {
+    if (box.dataset.loaded === '1') return;
+    var v = box.querySelector('video');
+    if (!v || !box.dataset.src) return;
     box.dataset.loaded = '1';
     prime(v);
-    v.addEventListener('error', function () { placeholder(box, src); });
-    v.src = src;
+    queue.push(box);
+    pump();
   }
 
   if (!('IntersectionObserver' in window)) {
@@ -65,8 +99,11 @@
     es.forEach(function (e) {
       var v = e.target.querySelector('video');
       if (!v) return;
-      if (e.isIntersecting) { play(e.target); }
-      else { v.pause(); }
+      if (e.isIntersecting) {
+        var i = queue.indexOf(e.target);
+        if (i > 0) { queue.unshift(queue.splice(i, 1)[0]); }   // on screen: go first
+        play(e.target);
+      } else { v.pause(); }
     });
   }, { threshold: 0.2 });
 
