@@ -61,16 +61,58 @@
     pump();
   }
 
+  // While a clip is still arriving, show how far it has got. Without this a
+  // slow tile is indistinguishable from a broken one — it just sits on its
+  // poster.
+  function meter(box) {
+    var el = document.createElement('div');
+    el.className = 'vid-load';
+    el.innerHTML = '<span class="vid-load__bar"></span><span class="vid-load__pct">0%</span>';
+    box.appendChild(el);
+    return el;
+  }
+
   function begin(box) {
     var v = box.querySelector('video');
     var src = box.dataset.src;
     if (!v || !src) return;
     fetching++;
     box.dataset.fetching = '1';
-    v.addEventListener('error', function () { done(box); placeholder(box, src); });
+
+    var ui = meter(box);
+    var bar = ui.querySelector('.vid-load__bar');
+    var pct = ui.querySelector('.vid-load__pct');
+
+    function progress() {
+      if (!v.duration || !isFinite(v.duration) || !v.buffered.length) return;
+      var end = v.buffered.end(v.buffered.length - 1);
+      var k = Math.max(0, Math.min(1, end / v.duration));
+      bar.style.transform = 'scaleX(' + k.toFixed(3) + ')';
+      pct.textContent = Math.round(k * 100) + '%';
+      if (k > 0.995) finish();
+    }
+
+    var gone = false;
+    function finish() {
+      if (gone) return;
+      gone = true;
+      ui.classList.add('is-done');
+      setTimeout(function () { if (ui.parentNode) ui.parentNode.removeChild(ui); }, 400);
+    }
+
+    v.addEventListener('progress', progress);
+    v.addEventListener('durationchange', progress);
+    v.addEventListener('error', function () { finish(); done(box); placeholder(box, src); });
     // enough buffered to start: release the slot to the next tile
     v.addEventListener('canplay', function () { done(box); });
     v.addEventListener('loadeddata', function () { done(box); });
+    // Deliberately not canplaythrough — that only means the browser thinks it
+    // can play to the end without stalling, which fires long before the file
+    // is in. The meter clears from progress() once buffered actually reaches
+    // the end.
+    v.addEventListener('suspend', progress);
+    v.addEventListener('timeupdate', progress);
+
     v.src = src;
   }
 

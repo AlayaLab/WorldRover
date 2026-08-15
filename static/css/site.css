@@ -181,6 +181,20 @@ h2.title{font-size:clamp(28px,3.6vw,44px);line-height:1.1;letter-spacing:-.02em;
 .duo{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:30px;align-items:start}
 .duo .figure{margin-top:0}
 
+
+/* buffering meter, shown only while a clip is still arriving */
+.vid-load{position:absolute;left:0;right:0;bottom:0;z-index:3;pointer-events:none;
+  display:flex;align-items:center;gap:8px;padding:0 10px 8px;
+  transition:opacity .35s}
+.vid-load.is-done{opacity:0}
+.vid-load__bar{flex:1;height:2px;background:var(--accent);transform:scaleX(0);
+  transform-origin:left center;transition:transform .25s ease-out;
+  box-shadow:0 0 8px var(--accent-glow)}
+.vid-load__pct{font-family:var(--mono);font-size:10px;letter-spacing:.1em;
+  color:var(--accent);min-width:3.2em;text-align:right}
+.vid-load::before{content:"";position:absolute;left:0;right:0;bottom:0;height:34px;
+  background:linear-gradient(to top,rgba(0,0,0,.55),transparent);z-index:-1}
+
 /* pending clip */
 .vid-missing{display:grid;place-items:center;aspect-ratio:16/9;
   background:repeating-linear-gradient(135deg,rgba(255,255,255,.03) 0 12px,rgba(255,255,255,.055) 12px 24px)}
