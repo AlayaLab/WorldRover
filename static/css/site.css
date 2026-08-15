@@ -191,7 +191,7 @@ h2.title{font-size:clamp(28px,3.6vw,44px);line-height:1.1;letter-spacing:-.02em;
   transform-origin:left center;transition:transform .25s ease-out;
   box-shadow:0 0 8px var(--accent-glow)}
 .vid-load__pct{font-family:var(--mono);font-size:10px;letter-spacing:.1em;
-  color:var(--accent);min-width:3.2em;text-align:right}
+  color:var(--accent);min-width:7.5em;text-align:right;white-space:nowrap}
 .vid-load::before{content:"";position:absolute;left:0;right:0;bottom:0;height:34px;
   background:linear-gradient(to top,rgba(0,0,0,.55),transparent);z-index:-1}
 

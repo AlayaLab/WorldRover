@@ -67,7 +67,8 @@
   function meter(box) {
     var el = document.createElement('div');
     el.className = 'vid-load';
-    el.innerHTML = '<span class="vid-load__bar"></span><span class="vid-load__pct">0%</span>';
+    el.innerHTML = '<span class="vid-load__bar"></span>' +
+                   '<span class="vid-load__pct">Loading 0%</span>';
     box.appendChild(el);
     return el;
   }
@@ -88,7 +89,7 @@
       var end = v.buffered.end(v.buffered.length - 1);
       var k = Math.max(0, Math.min(1, end / v.duration));
       bar.style.transform = 'scaleX(' + k.toFixed(3) + ')';
-      pct.textContent = Math.round(k * 100) + '%';
+      pct.textContent = 'Loading ' + Math.round(k * 100) + '%';
       if (k > 0.995) finish();
     }
 
