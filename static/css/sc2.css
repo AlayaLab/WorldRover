@@ -75,7 +75,7 @@ body{background:
   clip-path:polygon(12px 0, calc(100% - 12px) 0, 100% 12px, 100% calc(100% - 12px),
                     calc(100% - 12px) 100%, 12px 100%, 0 calc(100% - 12px), 0 12px)}
 
-.release-link{border-radius:0;text-transform:uppercase;letter-spacing:.08em;font-size:12px;font-weight:600}
+.release-link{border-radius:0;text-transform:uppercase;letter-spacing:.08em;font-size:13px;font-weight:600}
 .release-link:hover{border-color:var(--accent);background:rgba(255,221,153,.10)}
 
 .tldr-card{background:linear-gradient(180deg,rgba(14,134,202,.14),rgba(0,24,69,.25));
