@@ -37,11 +37,10 @@ per-scene repositories — take it only for the scenes you need.
 
 ## What makes it paired
 
-`pano/<clip_id>` and `fp/<clip_id>` are the **same camera path**, frame for frame: the
-first-person clip was rendered from the panoramic clip's own per-frame trajectory, and the
-two `camera_trajectory.csv` files agree to **0.000000 cm / deg** — not merely to a
-tolerance. That gives the same world state under two very different projections without
-having to trust an interpolated alignment.
+`pano/<clip_id>` and `fp/<clip_id>` share the same camera path frame for frame: the first-person
+clip was rendered from the panoramic clip's per-frame trajectory, so the two
+`camera_trajectory.csv` files match exactly. That gives the same world state under two very
+different projections without relying on an interpolated alignment.
 
 Clips are 35 s to 3.5 min of continuous motion — no cuts, no teleports.
 

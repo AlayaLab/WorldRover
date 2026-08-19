@@ -23,9 +23,9 @@ size_categories:
 Art Nouveau mansion, indoor. **47 clips per view, 30.2 min each of panoramic and first-person video**,
 30 fps, with lossless per-frame depth, camera pose and action labels.
 
-`pano/<clip_id>` and `fp/<clip_id>` are the **same camera path**: the first-person clip was
-rendered from the panoramic clip's own per-frame trajectory, and the two pose files agree
-to 0.000000 cm / deg. Frame *k* of one is frame *k* of the other.
+`pano/<clip_id>` and `fp/<clip_id>` share the same camera path: the first-person clip was rendered
+from the panoramic clip's per-frame trajectory, so frame *k* of one is frame *k* of the other and
+the two pose files match exactly.
 
 | | |
 |---|---|

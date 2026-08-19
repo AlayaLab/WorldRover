@@ -7,8 +7,8 @@ view. The first-person clip was rendered from the panoramic clip's own delivered
 
 * frame *k* of `fp/<id>/rgb.mp4` and frame *k* of `pano/<id>/rgb.mp4` are the same
   instant from the same position and heading;
-* the two `camera_trajectory.csv` files agree row for row — position and yaw to
-  **0.000000 cm / deg**, not merely to a tolerance;
+* the two `camera_trajectory.csv` files agree row for row — position and yaw match to
+  0.000000 cm / deg;
 * the first-person view looks along the panorama's forward axis, i.e. the equirect
   centre column (`worldrover.equirect.to_perspective(..., yaw=0, pitch=0)` reproduces
   the framing, up to the 65.5 deg vs 90 deg hfov you ask for).

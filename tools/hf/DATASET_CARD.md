@@ -32,9 +32,8 @@ Paired **360-panoramic** and **first-person** video of photoreal 3D environments
 per-frame depth, camera pose and action labels. Four scenes, roughly 30 min of each view
 per scene (~4 h of video in total, 30 fps).
 
-The two views of a clip id are the **same camera path**, frame for frame: the
-first-person clip was rendered from the panoramic clip's own per-frame trajectory, and
-the pose files agree to 0.000000 cm / deg.
+The two views of a clip id share the same camera path frame for frame: the first-person clip was
+rendered from the panoramic clip's per-frame trajectory, so the pose files match exactly.
 
 ## Layout
 
