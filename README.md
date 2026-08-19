@@ -112,17 +112,12 @@ The renderer and trajectory planner are **not** part of this release.
 
 ## TODO
 
-- [x] Preview release — first-person and 360-panoramic **RGB-D**: 4 scenes, 129 clips per view,
-      ~4.1 h at 30 fps, with per-frame depth, camera pose and action labels; the two views of a
-      clip id are the same camera path frame for frame
-- [x] Dataset tools — readers, camera/depth geometry, verification and visualisation (`tools/`)
-- [ ] Style and white-model video (first person) — the same trajectories re-rendered with geometry
-      and motion held fixed: lighting/material variants, plus a coarse white model that keeps
-      structure and drops texture
-- [ ] Third-person video with motion labels — third-person renders of a character walking the same
-      routes, with per-frame motion annotations
-- [ ] More scenes — beyond the four in the preview, towards the 30+ scenes the engine covers
-- [ ] WorldRover-Engine — scene pre-processing, trajectory planning and the rendering pipeline
+- [x] Preview release — first-person and 360-panoramic RGB-D
+- [x] Dataset tools
+- [ ] Style and white-model video (first person)
+- [ ] Third-person video with motion labels
+- [ ] More scenes
+- [ ] WorldRover-Engine — scene pre-processing, trajectory planning, rendering pipeline
 
 ## Citation
 
