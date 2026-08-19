@@ -14,7 +14,7 @@
 <p align="center">
   <a href="https://arxiv.org/abs/2608.15659"><b>Paper</b></a> ·
   <a href="https://alayalab.github.io/WorldRover/"><b>Project page</b></a> ·
-  <a href="https://huggingface.co/collections/xjxu21/worldrover-6a851193b19350ca6de9f424"><b>Dataset</b></a> ·
+  <a href="https://huggingface.co/collections/xjxu21/worldrover-6a851193b19350ca6de9f424"><b>Dataset (preview)</b></a> ·
   <a href="tools/"><b>Tools</b></a>
 </p>
 
