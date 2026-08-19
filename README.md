@@ -71,3 +71,23 @@ the three viewpoints).
 ## Publishing
 
 Push to `main`. Pages is set to deploy from the branch root.
+
+## Dataset tools
+
+`tools/` holds the dataset-side Python package and scripts — reading clips, decoding depth,
+camera geometry, verifying a download, and visualising trajectories and point clouds:
+
+```bash
+pip install -r tools/requirements.txt
+python tools/scripts/verify_dataset.py /data/WorldRover --check-actions
+```
+
+```python
+from worldrover import Clip                      # with tools/ on PYTHONPATH
+clip = Clip("venice/fp/venice_000003")
+rgb, depth_m = clip.rgb_frame(100), clip.depth_frame(100)
+```
+
+See [`tools/README.md`](tools/README.md) for the full tour, and `tools/docs/` for the data
+format, camera model and how the two views are paired. The renderer and trajectory planner
+are not part of this release. Tools are MIT licensed (`tools/LICENSE`).

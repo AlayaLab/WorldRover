@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+*.ply
+*.mp4
+*.jpg
+*.png
+!docs/**/*.png
+.venv/

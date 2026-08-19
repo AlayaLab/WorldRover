@@ -1,0 +1,3 @@
+numpy>=1.24
+opencv-python>=4.8
+# ffmpeg and ffprobe must be on PATH (depth is FFV1 in Matroska; rgb is H.264)
