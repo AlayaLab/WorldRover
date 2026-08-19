@@ -3,7 +3,12 @@
 
 <p align="center">
   Xiaojie Xu<sup>1,2,*</sup> &nbsp; Zhengyuan Lin<sup>1,2,*</sup> &nbsp; Runyi Li<sup>1,2</sup> &nbsp;
-  Yihao Liu<sup>1</sup> &nbsp; Kaipeng Zhang<sup>1,3,†</sup> &nbsp; Yongtao Ge<sup>1,†</sup>
+  Yihao Liu<sup>1</sup> &nbsp; Kaipeng Zhang<sup>1,†</sup> &nbsp; Yongtao Ge<sup>1,†</sup>
+</p>
+
+<p align="center">
+  <sup>1</sup> Alaya Lab &nbsp;·&nbsp; <sup>2</sup> The University of Tokyo
+  &nbsp;·&nbsp; <sup>*</sup> Equal &nbsp;·&nbsp; <sup>†</sup> Corresponding
 </p>
 
 <p align="center">
@@ -38,10 +43,11 @@ Because the camera path is a first-class input, the same trajectory can be re-re
 different projection, a different lighting state, or with a different character, and the
 frames still line up frame for frame.
 
-## The released dataset
+## The dataset preview
 
-The first public release is the **paired panoramic / first-person** slice: four scenes, about
-30 min of each view per scene, **~4.1 h of video** at 30 fps.
+This is a **preview release** — the paired panoramic / first-person slice: four scenes, about
+30 min of each view per scene, **~4.1 h of video** at 30 fps. It is a slice of the corpus the
+paper reports, not the whole of it.
 
 | Scene | Clips per view | Per view | With depth |
 |---|---|---|---|
