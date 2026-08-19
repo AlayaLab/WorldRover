@@ -112,7 +112,7 @@ The renderer and trajectory planner are **not** part of this release.
 
 ## TODO
 
-- [x] Preview release — first-person and 360-panoramic RGB-D
+- [x] Preview release — first-person and 360-panoramic RGB-D, 4 scenes
 - [x] Dataset tools
 - [ ] Style and white-model video (first person)
 - [ ] Third-person video with motion labels
