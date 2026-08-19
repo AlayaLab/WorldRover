@@ -8,7 +8,7 @@
 
 <p align="center">
   <sup>1</sup> Alaya Lab &nbsp;·&nbsp; <sup>2</sup> The University of Tokyo
-  &nbsp;·&nbsp; <sup>*</sup> Equal &nbsp;·&nbsp; <sup>†</sup> Corresponding
+  &nbsp;·&nbsp; <sup>*</sup> Equal contribution &nbsp;·&nbsp; <sup>†</sup> Corresponding author
 </p>
 
 <p align="center">
