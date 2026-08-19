@@ -124,15 +124,6 @@ camera model and pairing notes.
 
 The renderer and trajectory planner are **not** part of this release.
 
-## Project page
-
-This repository also serves the project page at
-**https://alayalab.github.io/WorldRover/** (`index.html` + `static/`).
-
-```bash
-python3 -m http.server 8765     # then open http://localhost:8765
-```
-
 ## Citation
 
 ```bibtex
