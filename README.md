@@ -73,9 +73,9 @@ Every clip, both views, ships:
   trajectory.png             top-down path preview
 ```
 
-**The two views of a clip id are the same camera path, frame for frame.** The first-person
-clip was rendered from the panoramic clip's own per-frame trajectory, and the two pose files
-agree to **0.000000 cm / deg** — not merely within a tolerance. Verify it yourself:
+The two views of a clip id share the same camera path frame for frame: the first-person clip was
+rendered from the panoramic clip's per-frame trajectory, so the two pose files match exactly. To
+check a scene:
 
 ```bash
 python tools/scripts/check_pairing.py /data/WorldRover/venice
