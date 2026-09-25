@@ -5,7 +5,7 @@ photoreal 3D environments, with per-frame depth, camera pose and action labels.
 
 * Paper: https://arxiv.org/abs/2608.15659
 * Project page: https://alayalab.github.io/WorldRover/
-* Dataset: https://huggingface.co/collections/xjxu21/worldrover-6a851193b19350ca6de9f424
+* Dataset: https://huggingface.co/collections/AlayaLab/worldrover-6ab4ee625ea9252fbae26a66
 
 This directory holds the *dataset-side* code — readers, geometry, verification and
 visualisation. The renderer and trajectory planner that produce the clips are not part of
@@ -14,15 +14,15 @@ this release.
 ```bash
 pip install -r requirements.txt          # numpy, opencv-python; ffmpeg/ffprobe on PATH
 
-python scripts/verify_dataset.py /data/WorldRover --check-actions
-python scripts/check_pairing.py   /data/WorldRover/venice
-python scripts/make_depth_preview.py /data/WorldRover/venice/fp/venice_000003 preview.mp4
+python scripts/verify_dataset.py /data/WorldRover-6scenes --check-actions
+python scripts/check_pairing.py   /data/WorldRover-6scenes/venice
+python scripts/make_depth_preview.py /data/WorldRover-6scenes/venice/fp/venice_000000 preview.mp4
 ```
 
 ```python
 from worldrover import Clip
 
-clip = Clip("/data/WorldRover/venice/fp/venice_000003")
+clip = Clip("/data/WorldRover-6scenes/venice/fp/venice_000000")
 rgb     = clip.rgb_frame(100)            # uint8 (H, W, 3), sRGB, ready to use
 depth_m = clip.depth_frame(100)          # planar depth in metres
 points  = clip.points_world(100)         # world points in centimetres
@@ -33,14 +33,15 @@ poses   = clip.poses                     # per-frame camera pose + intrinsics
 
 | | |
 |---|---|
-| Scenes | `med_village`, `paris`, `venice`, `art_nouveau` |
+| Releases | `WorldRover-6scenes` (paired, 6 scenes, 7.6 TB) · `WorldRover-styles` (6 style treatments, 818 GB) · `WorldRover` (index + lite subset) |
+| Scenes | `med_village`, `venice`, `apartment`, `paris`, `office`, `art_nouveau` |
 | Views | `pano` — 4096x2048 equirectangular · `fp` — 1280x720 pinhole (hfov 65.5 deg) |
-| Per scene | ~30 min panoramic + ~30 min first-person, ~4 h total |
+| Per scene | 100 clips per view in `WorldRover-6scenes`, 2.2–4.5 h of video per view |
 | Frame rate | 30 fps |
 | Per clip | `rgb.mp4`, lossless 16-bit depth, per-frame camera pose, action labels, scene metadata |
 | Pairing | `pano/<id>` and `fp/<id>` are the **same camera path**, frame for frame |
 
-Clips are 20 s to 3.5 min of continuous motion through the scene — no cuts, no teleports.
+Clips are 11 s to 8.5 min of continuous motion through the scene — no cuts, no teleports.
 
 ## Layout
 
@@ -57,7 +58,10 @@ WorldRover/
 
 1. **Depth is log-quantized and radial.** Decode with the formula in
    `depth.meta.json`, then convert radial distance to planar depth before
-   unprojecting. Skipping the conversion costs 13% at the frame corner.
+   unprojecting. Skipping the conversion costs 13% at the frame corner. The pixel
+   format is not the same in every release — `gray16le` throughout
+   `WorldRover-6scenes`, mostly `gbrp16le` with the code in R in `WorldRover-styles`
+   — so take it from each clip's own `depth.meta.json`, as `worldrover.depth` does.
 2. **`camera_trajectory.csv` has `n_frames + 1` rows.** The last row is the
    renderer's closing keyframe, not a frame of video.
 3. **Poses are Unreal-style**: left-handed, centimetres, X-forward/Y-right/Z-up, and

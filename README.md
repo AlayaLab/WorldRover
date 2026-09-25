@@ -14,7 +14,7 @@
 <p align="center">
   <a href="https://arxiv.org/abs/2608.15659"><b>Paper</b></a> ·
   <a href="https://alayalab.github.io/WorldRover/"><b>Project page</b></a> ·
-  <a href="https://huggingface.co/collections/xjxu21/worldrover-6a851193b19350ca6de9f424"><b>Dataset (preview)</b></a> ·
+  <a href="https://huggingface.co/collections/AlayaLab/worldrover-6ab4ee625ea9252fbae26a66"><b>Dataset</b></a> ·
   <a href="tools/"><b>Tools</b></a>
 </p>
 
@@ -43,22 +43,27 @@ Because the camera path is a first-class input, the same trajectory can be re-re
 different projection, a different lighting state, or with a different character, and the
 frames still line up frame for frame.
 
-## The dataset preview
+## The dataset
 
-This is a **preview release** — the paired panoramic / first-person slice: four scenes, about
-30 min of each view per scene, **~4.1 h of video** at 30 fps. It is a slice of the corpus the
-paper reports, not the whole of it.
+Three releases, all from the same engine. **Start with `WorldRover-6scenes`** — it is the
+largest and newest.
 
-| Scene | Clips per view | Per view | With depth |
-|---|---|---|---|
-| [med_village](https://huggingface.co/datasets/xjxu21/WorldRover-med_village) | 13 | 32.1 min | 286 GB |
-| [paris](https://huggingface.co/datasets/xjxu21/WorldRover-paris) | 23 | 30.7 min | 167 GB |
-| [venice](https://huggingface.co/datasets/xjxu21/WorldRover-venice) | 46 | 30.5 min | 169 GB |
-| [art_nouveau](https://huggingface.co/datasets/xjxu21/WorldRover-art_nouveau) | 47 | 30.2 min | 179 GB |
+| Release | What it is | Scenes | Clips | Video | Size |
+|---|---|---|---|---|---|
+| [**WorldRover-6scenes**](https://huggingface.co/datasets/AlayaLab/WorldRover-6scenes) | paired 360 panoramic + first person, lossless depth | 6 | 600 per view | 18.9 h per view | 7.6 TB |
+| [**WorldRover-styles**](https://huggingface.co/datasets/AlayaLab/WorldRover-styles) | one trajectory set under six lighting / style treatments | 4 | 1000 | 48 h | 818 GB |
+| [**WorldRover**](https://huggingface.co/datasets/AlayaLab/WorldRover) | index, and the lite subset of the original release (no depth) | 4 | 129 per view | 4.1 h per view | 103 GB |
 
-Start from the **[lite subset](https://huggingface.co/datasets/xjxu21/WorldRover)** — RGB,
-camera pose, actions and metadata, ~103 GB — and pull the per-scene repositories only for the
-scenes whose lossless depth you need (depth is 87% of the bytes).
+`WorldRover-6scenes` covers `med_village`, `venice`, `apartment`, `paris`, `office` and
+`art_nouveau`, 100 clips per view each, 11 s to 8.5 min per clip. The four scenes of the
+original release also remain available one repo per scene, with full depth:
+[med_village](https://huggingface.co/datasets/AlayaLab/WorldRover-med_village) 334 GB ·
+[paris](https://huggingface.co/datasets/AlayaLab/WorldRover-paris) 170 GB ·
+[venice](https://huggingface.co/datasets/AlayaLab/WorldRover-venice) 169 GB ·
+[art_nouveau](https://huggingface.co/datasets/AlayaLab/WorldRover-art_nouveau) 178 GB.
+
+Depth is 87% of the bytes, so if you only need RGB, pose and actions, the lite subset is the
+cheap way in.
 
 Every clip, both views, ships:
 
@@ -78,10 +83,10 @@ rendered from the panoramic clip's per-frame trajectory, so the two pose files m
 check a scene:
 
 ```bash
-python tools/scripts/check_pairing.py /data/WorldRover/venice
+python tools/scripts/check_pairing.py /data/WorldRover-6scenes/venice
 ```
 
-Clips are 35 s to 3.5 min of continuous motion — no cuts, no teleports.
+Clips are 11 s to 8.5 min of continuous motion — no cuts, no teleports.
 
 ## Dataset tools
 
@@ -90,19 +95,21 @@ camera geometry, verifying a download, and visualising trajectories and point cl
 
 ```bash
 pip install -r tools/requirements.txt
-python tools/scripts/verify_dataset.py /data/WorldRover --check-actions
+python tools/scripts/verify_dataset.py /data/WorldRover-6scenes --check-actions
 ```
 
 ```python
 from worldrover import Clip                      # with tools/ on PYTHONPATH
-clip = Clip("venice/fp/venice_000003")
+clip = Clip("/data/WorldRover-6scenes/venice/fp/venice_000000")
 rgb     = clip.rgb_frame(100)                    # uint8 (720, 1280, 3), sRGB
 depth_m = clip.depth_frame(100)                  # planar depth in metres
 points  = clip.points_world(100)                 # world points in centimetres
 ```
 
 Three conventions are easy to get wrong by hand, and the tools handle all three: depth codes
-are **log-quantized** and store **radial** distance (convert before unprojecting);
+are **log-quantized** and store **radial** distance (convert before unprojecting), and the
+pixel format differs between releases — `gray16le` in `WorldRover-6scenes`, mostly `gbrp16le`
+with the code in R in `WorldRover-styles` — so read it from each clip's `depth.meta.json`;
 `camera_trajectory.csv` has `n_frames + 1` rows, the last being the closing keyframe; poses
 are Unreal-style — left-handed, centimetres, X-forward / Y-right / Z-up, camera looking down
 its own +X. See [`tools/README.md`](tools/README.md) and `tools/docs/` for the full format,
@@ -114,9 +121,10 @@ The renderer and trajectory planner are **not** part of this release.
 
 - [x] Preview release — first-person and 360-panoramic RGB-D, 4 scenes
 - [x] Dataset tools
-- [ ] Style and white-model video (first person)
+- [x] Style and white-model video (first person) — `WorldRover-styles`
 - [ ] Third-person video with motion labels
-- [ ] More scenes
+- [x] More scenes — `WorldRover-6scenes` adds `office` and `apartment`, 100 clips per view per scene
+- [ ] More scenes still
 - [ ] WorldRover-Engine — scene pre-processing, trajectory planning, rendering pipeline
 
 ## Citation

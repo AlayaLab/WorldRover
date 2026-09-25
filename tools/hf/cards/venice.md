@@ -46,12 +46,13 @@ venice/
 
 ```bash
 git clone https://github.com/AlayaLab/WorldRover
-pip install -r WorldRover/requirements.txt
+pip install -r WorldRover/tools/requirements.txt   # numpy, opencv-python; ffmpeg/ffprobe on PATH
+cd WorldRover/tools                                # the package is not pip-installable yet
 ```
 
 ```python
 from worldrover import Clip
-clip = Clip("venice/fp/venice_000003")
+clip = Clip("/data/WorldRover-venice/venice/fp/venice_000003")
 rgb, depth_m = clip.rgb_frame(100), clip.depth_frame(100)   # sRGB uint8; planar metres
 pts = clip.points_world(100)                                # world points, centimetres
 ```
@@ -64,9 +65,10 @@ left-handed, centimetres, X-forward / Y-right / Z-up, camera looking down its ow
 
 ## Related
 
-* Collection (all parts in one place): https://huggingface.co/collections/xjxu21/worldrover-6a851193b19350ca6de9f424
-* Lite subset (no depth, ~103 GB): https://huggingface.co/datasets/xjxu21/WorldRover
-* Full per-scene: [med_village](https://huggingface.co/datasets/xjxu21/WorldRover-med_village) · [paris](https://huggingface.co/datasets/xjxu21/WorldRover-paris) · [venice](https://huggingface.co/datasets/xjxu21/WorldRover-venice) · [art_nouveau](https://huggingface.co/datasets/xjxu21/WorldRover-art_nouveau)
+* Collection (all parts in one place): https://huggingface.co/collections/AlayaLab/worldrover-6ab4ee625ea9252fbae26a66
+* Lite subset (no depth, ~103 GB): https://huggingface.co/datasets/AlayaLab/WorldRover
+* Full per-scene: [med_village](https://huggingface.co/datasets/AlayaLab/WorldRover-med_village) · [paris](https://huggingface.co/datasets/AlayaLab/WorldRover-paris) · [venice](https://huggingface.co/datasets/AlayaLab/WorldRover-venice) · [art_nouveau](https://huggingface.co/datasets/AlayaLab/WorldRover-art_nouveau)
+* Newer releases: [WorldRover-6scenes](https://huggingface.co/datasets/AlayaLab/WorldRover-6scenes) — six scenes, 600 paired clips per view, 7.6 TB · [WorldRover-styles](https://huggingface.co/datasets/AlayaLab/WorldRover-styles) — the same trajectories under six lighting/style treatments
 * Tools: https://github.com/AlayaLab/WorldRover
 
 ## License

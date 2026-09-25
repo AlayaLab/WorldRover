@@ -1,7 +1,7 @@
 ---
 license: other
 license_name: worldrover-research
-pretty_name: WorldRover (lite)
+pretty_name: WorldRover
 task_categories:
   - depth-estimation
   - robotics
@@ -20,59 +20,92 @@ size_categories:
 
 # WorldRover
 
-Paired **360-panoramic** and **first-person** video of photoreal 3D environments, with
-per-frame depth, camera pose and action labels. Four scenes, ~30 min of each view per
-scene — **129 clips per view, ~4.1 h of video** at 30 fps.
+Long, continuous camera paths through photoreal 3D environments, rendered with **per-frame
+metric depth, camera pose and action labels** — and, where it matters, rendered **more than
+once along the same path**, so you can hold geometry and motion fixed while the projection or
+the lighting changes.
 
-**This repository is the lite subset**: RGB + camera pose + actions + metadata, **no depth**
-(~103 GB instead of ~800 GB). Lossless 16-bit depth is 87% of the bytes, so it lives in the
-per-scene repositories — take it only for the scenes you need.
+This repository is the **index and the lite subset**. The full data is split across the
+repositories below; take the part you need.
 
-| Scene | Clips per view | Per view | Full repo (with depth) |
-|---|---|---|---|
-| med_village | 13 | 32.1 min | [WorldRover-med_village](https://huggingface.co/datasets/xjxu21/WorldRover-med_village) — 270 GB |
-| paris | 23 | 30.7 min | [WorldRover-paris](https://huggingface.co/datasets/xjxu21/WorldRover-paris) — 152 GB |
-| venice | 46 | 30.4 min | [WorldRover-venice](https://huggingface.co/datasets/xjxu21/WorldRover-venice) — 154 GB |
-| art_nouveau | 47 | 30.2 min | [WorldRover-art_nouveau](https://huggingface.co/datasets/xjxu21/WorldRover-art_nouveau) — 164 GB |
+## Parts
 
-## What makes it paired
+| Repository | What it is | Scenes | Clips | Video | Size |
+|---|---|---|---|---|---|
+| **this repo** | lite: paired panoramic + first-person, RGB + pose + actions, **no depth** | 4 | 129 per view | 4.1 h per view | 103 GB |
+| [**WorldRover-6scenes**](https://huggingface.co/datasets/AlayaLab/WorldRover-6scenes) | paired 360° panoramic + first-person, **with lossless depth** | 6 | 600 per view | 18.9 h per view | 7.6 TB |
+| [**WorldRover-styles**](https://huggingface.co/datasets/AlayaLab/WorldRover-styles) | one trajectory set re-rendered under 6 lighting/style treatments | 4 | 1000 | 48 h | 818 GB |
+| [med_village](https://huggingface.co/datasets/AlayaLab/WorldRover-med_village) · [paris](https://huggingface.co/datasets/AlayaLab/WorldRover-paris) · [venice](https://huggingface.co/datasets/AlayaLab/WorldRover-venice) · [art_nouveau](https://huggingface.co/datasets/AlayaLab/WorldRover-art_nouveau) | the original release, full depth, one repo per scene | 1 each | 13–47 per view | ~30 min per view | 169–334 GB |
 
-`pano/<clip_id>` and `fp/<clip_id>` share the same camera path frame for frame: the first-person
-clip was rendered from the panoramic clip's per-frame trajectory, so the two
-`camera_trajectory.csv` files match exactly. That gives the same world state under two very
-different projections without relying on an interpolated alignment.
+**Start with `WorldRover-6scenes`** unless you specifically want the original four-scene
+release or the style variants — it is the largest, newest and most complete part.
 
-Clips are 35 s to 3.5 min of continuous motion — no cuts, no teleports.
+## The two kinds of pairing
+
+**Same path, two projections** (`WorldRover-6scenes`, and this lite repo). `pano/<clip_id>` and
+`fp/<clip_id>` are the same camera path: the first-person clip is rendered from the panoramic
+clip's per-frame trajectory, so the two `camera_trajectory.csv` files agree row for row and only
+the intrinsics differ (360°/0 mm equirect vs 65.5°/28 mm pinhole). No interpolated alignment is
+involved.
+
+**Same path, six appearances** (`WorldRover-styles`). Each trajectory is rendered as a reference
+first-person clip plus up to five variants — untextured white model, golden hour, night, snow,
+storm — frame-aligned, so the depth, pose and action labels of the reference clip apply to every
+variant of it unchanged.
+
+## What a clip contains
+
+```
+rgb.mp4                 H.264, 30 fps
+depth/depth.mkv         FFV1 16-bit, lossless, log-quantized radial depth
+depth/depth.meta.json   near/far, authoritative frame count, decode formula
+camera_trajectory.csv   per-frame world pose + intrinsics
+description.json        scene, asset pack, licence, trajectory summary, render settings
+gamepad_format/         action labels (axis events + timeline)
+trajectory.png          top-down path plot
+```
+
+Clips are 11 s to 8.5 min of continuous motion — no cuts, no teleports.
+
+## Conventions that are easy to get wrong
+
+* **Depth is log-quantized and radial**: `depth_m = exp(code/65535 * (log 200 − log 0.1) + log 0.1)`,
+  and the value is distance along the ray, not along the optical axis. Convert before unprojecting.
+  The pixel format is **not the same everywhere**: `WorldRover-6scenes` is uniformly
+  `gray16le`, while `WorldRover-styles` is mostly `gbrp16le` with the code in the **R** channel
+  (three art_nouveau clips excepted). Each clip's `depth/depth.meta.json` names its own format
+  — read it instead of assuming.
+* **Frame counts**: `camera_trajectory.csv` has one row more than the video has frames (the last
+  row is the closing keyframe). The authoritative count is `depth/depth.meta.json`.
+* **Poses are Unreal-style**: left-handed, centimetres, X-forward / Y-right / Z-up, camera looking
+  down its own +X.
+* **Panoramic frames are equirectangular**: a rectangular crop is *not* a perspective view.
+  Reproject before comparing one against a first-person clip.
 
 ## Tools
 
 ```bash
 git clone https://github.com/AlayaLab/WorldRover
-pip install -r WorldRover/requirements.txt
+pip install -r WorldRover/tools/requirements.txt   # numpy, opencv-python; ffmpeg/ffprobe on PATH
+cd WorldRover/tools                                # the package is not pip-installable yet
 ```
 
 ```python
 from worldrover import Clip
-clip = Clip("venice/fp/venice_000003")
-rgb, depth_m = clip.rgb_frame(100), clip.depth_frame(100)   # sRGB uint8; planar metres
-pts = clip.points_world(100)                                # world points, centimetres
+
+clip    = Clip("/data/WorldRover-6scenes/venice/fp/venice_000000")
+rgb     = clip.rgb_frame(100)     # uint8 (H, W, 3), sRGB
+depth_m = clip.depth_frame(100)   # planar depth in metres
+pts     = clip.points_world(100)  # world points, centimetres
+poses   = clip.poses              # per-frame pose + intrinsics
 ```
 
-Three conventions the tools handle for you, and that are easy to get wrong by hand:
-depth codes are **log-quantized** and store **radial** distance (convert before
-unprojecting); `camera_trajectory.csv` has `n_frames + 1` rows (the last is the closing
-keyframe, the authoritative count is `depth/depth.meta.json`); poses are Unreal-style —
-left-handed, centimetres, X-forward / Y-right / Z-up, camera looking down its own +X.
-
-## Related
-
-* Collection (all parts in one place): https://huggingface.co/collections/xjxu21/worldrover-6a851193b19350ca6de9f424
-* Lite subset (no depth, ~103 GB): https://huggingface.co/datasets/xjxu21/WorldRover
-* Full per-scene: [med_village](https://huggingface.co/datasets/xjxu21/WorldRover-med_village) · [paris](https://huggingface.co/datasets/xjxu21/WorldRover-paris) · [venice](https://huggingface.co/datasets/xjxu21/WorldRover-venice) · [art_nouveau](https://huggingface.co/datasets/xjxu21/WorldRover-art_nouveau)
-* Tools: https://github.com/AlayaLab/WorldRover
+`Clip` takes a filesystem path to a clip directory. The reader takes the depth pixel format
+from that clip's own `depth/depth.meta.json`, so it handles both encodings used across these
+repositories, and it converts radial depth and the off-by-one trajectory row for you.
 
 ## License
 
 Rendered video, depth, camera pose and action labels are released for research use. The
-underlying 3D environments are third-party commercial assets, are **not** redistributed
-here, and each clip's `description.json` records its asset pack and license. Tools are MIT.
+underlying 3D environments are third-party commercial assets, are **not** redistributed here,
+and each clip's `description.json` records its asset pack and licence. Tools are MIT.
