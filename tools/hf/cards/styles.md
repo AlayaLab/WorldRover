@@ -98,7 +98,8 @@ clip for that trajectory's depth, pose and action labels.
 
 ## Related
 
-* [WorldRover](https://huggingface.co/datasets/AlayaLab/WorldRover) — index and lite subset
+* [WorldRover-preview](https://huggingface.co/datasets/AlayaLab/WorldRover-preview) — the original release as a lite subset (no depth)
+* [Collection](https://huggingface.co/collections/AlayaLab/worldrover-6ab4ee625ea9252fbae26a66) — every part in one place
 * [WorldRover-6scenes](https://huggingface.co/datasets/AlayaLab/WorldRover-6scenes) — paired
   360° panoramic + first-person, six scenes, 7.6 TB
 

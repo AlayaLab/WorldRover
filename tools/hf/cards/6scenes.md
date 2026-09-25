@@ -110,7 +110,8 @@ repositories, and it converts radial depth and the off-by-one trajectory row for
 
 ## Related
 
-* [WorldRover](https://huggingface.co/datasets/AlayaLab/WorldRover) — index and lite subset
+* [WorldRover-preview](https://huggingface.co/datasets/AlayaLab/WorldRover-preview) — the original release as a lite subset (no depth)
+* [Collection](https://huggingface.co/collections/AlayaLab/worldrover-6ab4ee625ea9252fbae26a66) — every part in one place
 * [WorldRover-styles](https://huggingface.co/datasets/AlayaLab/WorldRover-styles) — the same
   kind of trajectories re-rendered under six lighting/style treatments
 

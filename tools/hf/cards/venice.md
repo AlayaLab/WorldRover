@@ -66,7 +66,7 @@ left-handed, centimetres, X-forward / Y-right / Z-up, camera looking down its ow
 ## Related
 
 * Collection (all parts in one place): https://huggingface.co/collections/AlayaLab/worldrover-6ab4ee625ea9252fbae26a66
-* Lite subset (no depth, ~103 GB): https://huggingface.co/datasets/AlayaLab/WorldRover
+* Preview release, lite subset (no depth, ~103 GB): https://huggingface.co/datasets/AlayaLab/WorldRover-preview
 * Full per-scene: [med_village](https://huggingface.co/datasets/AlayaLab/WorldRover-med_village) · [paris](https://huggingface.co/datasets/AlayaLab/WorldRover-paris) · [venice](https://huggingface.co/datasets/AlayaLab/WorldRover-venice) · [art_nouveau](https://huggingface.co/datasets/AlayaLab/WorldRover-art_nouveau)
 * Newer releases: [WorldRover-6scenes](https://huggingface.co/datasets/AlayaLab/WorldRover-6scenes) — six scenes, 600 paired clips per view, 7.6 TB · [WorldRover-styles](https://huggingface.co/datasets/AlayaLab/WorldRover-styles) — the same trajectories under six lighting/style treatments
 * Tools: https://github.com/AlayaLab/WorldRover

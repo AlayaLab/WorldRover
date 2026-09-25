@@ -1,7 +1,7 @@
 ---
 license: other
 license_name: worldrover-research
-pretty_name: WorldRover
+pretty_name: WorldRover (preview)
 task_categories:
   - depth-estimation
   - robotics
@@ -18,21 +18,23 @@ size_categories:
   - 100B<n<1T
 ---
 
-# WorldRover
+# WorldRover-preview
 
 Long, continuous camera paths through photoreal 3D environments, rendered with **per-frame
 metric depth, camera pose and action labels** — and, where it matters, rendered **more than
 once along the same path**, so you can hold geometry and motion fixed while the projection or
 the lighting changes.
 
-This repository is the **index and the lite subset**. The full data is split across the
-repositories below; take the part you need.
+This repository is the **original preview release**, as a lite subset: RGB, camera pose,
+actions and metadata for four scenes, **without depth** (depth is 87% of the bytes). The
+rest of the data lives in the repositories below — see the [collection](https://huggingface.co/collections/AlayaLab/worldrover-6ab4ee625ea9252fbae26a66) for all
+parts in one place.
 
 ## Parts
 
 | Repository | What it is | Scenes | Clips | Video | Size |
 |---|---|---|---|---|---|
-| **this repo** | lite: paired panoramic + first-person, RGB + pose + actions, **no depth** | 4 | 129 per view | 4.1 h per view | 103 GB |
+| **this repo** (`WorldRover-preview`) | lite: paired panoramic + first-person, RGB + pose + actions, **no depth** | 4 | 129 per view | 4.1 h per view | 103 GB |
 | [**WorldRover-6scenes**](https://huggingface.co/datasets/AlayaLab/WorldRover-6scenes) | paired 360° panoramic + first-person, **with lossless depth** | 6 | 600 per view | 18.9 h per view | 7.6 TB |
 | [**WorldRover-styles**](https://huggingface.co/datasets/AlayaLab/WorldRover-styles) | one trajectory set re-rendered under 6 lighting/style treatments | 4 | 1000 | 48 h | 818 GB |
 | [med_village](https://huggingface.co/datasets/AlayaLab/WorldRover-med_village) · [paris](https://huggingface.co/datasets/AlayaLab/WorldRover-paris) · [venice](https://huggingface.co/datasets/AlayaLab/WorldRover-venice) · [art_nouveau](https://huggingface.co/datasets/AlayaLab/WorldRover-art_nouveau) | the original release, full depth, one repo per scene | 1 each | 13–47 per view | ~30 min per view | 169–334 GB |
@@ -42,7 +44,7 @@ release or the style variants — it is the largest, newest and most complete pa
 
 ## The two kinds of pairing
 
-**Same path, two projections** (`WorldRover-6scenes`, and this lite repo). `pano/<clip_id>` and
+**Same path, two projections** (`WorldRover-6scenes`, and this preview repo). `pano/<clip_id>` and
 `fp/<clip_id>` are the same camera path: the first-person clip is rendered from the panoramic
 clip's per-frame trajectory, so the two `camera_trajectory.csv` files agree row for row and only
 the intrinsics differ (360°/0 mm equirect vs 65.5°/28 mm pinhole). No interpolated alignment is

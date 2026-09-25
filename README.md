@@ -52,7 +52,7 @@ largest and newest.
 |---|---|---|---|---|---|
 | [**WorldRover-6scenes**](https://huggingface.co/datasets/AlayaLab/WorldRover-6scenes) | paired 360 panoramic + first person, lossless depth | 6 | 600 per view | 18.9 h per view | 7.6 TB |
 | [**WorldRover-styles**](https://huggingface.co/datasets/AlayaLab/WorldRover-styles) | one trajectory set under six lighting / style treatments | 4 | 1000 | 48 h | 818 GB |
-| [**WorldRover**](https://huggingface.co/datasets/AlayaLab/WorldRover) | index, and the lite subset of the original release (no depth) | 4 | 129 per view | 4.1 h per view | 103 GB |
+| [**WorldRover-preview**](https://huggingface.co/datasets/AlayaLab/WorldRover-preview) | the original release as a lite subset — no depth | 4 | 129 per view | 4.1 h per view | 103 GB |
 
 `WorldRover-6scenes` covers `med_village`, `venice`, `apartment`, `paris`, `office` and
 `art_nouveau`, 100 clips per view each, 11 s to 8.5 min per clip. The four scenes of the
