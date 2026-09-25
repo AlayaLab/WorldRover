@@ -124,7 +124,6 @@ The renderer and trajectory planner are **not** part of this release.
 - [x] Style and white-model video (first person) — `WorldRover-styles`
 - [ ] Third-person video with motion labels
 - [x] More scenes — `WorldRover-6scenes` adds `office` and `apartment`, 100 clips per view per scene
-- [ ] More scenes still
 - [ ] WorldRover-Engine — scene pre-processing, trajectory planning, rendering pipeline
 
 ## Citation
